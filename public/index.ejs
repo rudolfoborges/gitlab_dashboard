@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Gitlab Dashboard</title>
+
+	<link rel="stylesheet" href="lib/normalize.css/normalize.css">
+	<link rel="stylesheet" href="lib/animate.css/animate.min.css">
+	<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+
+	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+	<script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+	 <!-- build:js assets/js/app.min.js -->
+    <script src="angular.app.js"></script>
+    <script src="angular.routes.js"></script>
+    <!-- endbuild -->
+</head>
+<body>
+	
+	<body class="top-navigation pace-done fixed-nav">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+	        <div class="row border-bottom white-bg">
+		        <nav class="navbar navbar-fixed-top" role="navigation">
+		            <div class="navbar-header">
+		                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+		                    <i class="fa fa-reorder"></i>
+		                </button>
+		                <a href="/#!/" class="navbar-brand"><i class="fa fa-bar-chart"></i> Gitlab Metric Dashboard</a>
+		            </div>
+		            <div class="navbar-collapse collapse" id="navbar">
+		                <ul class="nav navbar-nav">
+		                    <li class="active">
+		                        <a aria-expanded="false" role="button" href="/#!/" class="project-people" style="padding-top: 10px !important; height: 50px !important;" >
+		                        	Dashboard
+		                        </a>
+		                    </li>
+		                </ul>
+		            </div>
+		        </nav>
+	        </div>
+	        <div class="wrapper wrapper-content">
+	            <div class="container">
+					<div ui-view="contentView"></div>
+	            </div>
+	        </div>
+		        <div class="footer fixed">
+		            <div>
+		                <strong>Copyright</strong> TreeMobi &copy; 2015
+		            </div>
+		        </div>
+
+	        </div>
+        </div>
+
+        <script src="lib/jquery/dist/jquery.min.js"></script>
+    	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    	<script src="assets/js/metisMenu/jquery.metisMenu.js"></script>
+    	<script src="assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+
+    	<script src="assets/js/inspinia.js"></script>
+
+</body>
+</html>
