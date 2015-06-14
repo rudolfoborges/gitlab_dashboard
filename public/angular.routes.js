@@ -5,30 +5,19 @@
 
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
-		/*
 		$stateProvider
-		    .state('classes', {
-		      url: "/turmas",
+		    .state('dashboard', {
+		      url: "/dashboard",
 		      views: {
 		        "contentView": { 
-		        	templateUrl: "templates/classes.html",
-		        	controller: 'ClassController as ctrl'
-		        }
-		      }
-		    })
-
-		    .state('classDetail', {
-		      url: "/turma/:id",
-		      views: {
-		        "contentView": { 
-		        	templateUrl: "templates/class_detail.html",
-		        	controller: 'ClassController as ctrl'
+		        	templateUrl: "templates/dashboard.html"
+		        	//controller: 'DashboardController as ctrl'
 		        }
 		      }
 		    });
-		*/
 
-		$urlRouterProvider.otherwise("/#!/");
+	
+		$urlRouterProvider.otherwise("/dashboard");
 
 	}]);
 
