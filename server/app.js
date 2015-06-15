@@ -36,13 +36,13 @@ module.exports = {
 		});
 
 		var worker = new GitlabWorker(gitlab);
-		
-		var job = new CronJob('*/1 * * * *', function(){
+
+		var job = new CronJob(env.cron.time, function(){
 			worker.start();
 			console.log('Start all Jbos' + new Date());
 		}, function(){
 
-		}, true, 'America/Bahia');
+		}, true, env.cron.timezone);
 
 		module.exports = app;
 
