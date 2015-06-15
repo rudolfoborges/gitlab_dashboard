@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var projectSchema = new Schema({
-	id: {
+	remoteId: {
 		type: Number,
 		unique: true
 	},
@@ -13,12 +13,6 @@ var projectSchema = new Schema({
 	},
 	path: {
 		type: String
-	},
-	defaultBranch: {
-		type: String
-	},
-	isPrivate: {
-		type: Boolean
 	},
 	owner: {
 		type: String

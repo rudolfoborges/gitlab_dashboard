@@ -12,8 +12,8 @@ module.exports = {
 			app = express();
 
 		var gitlab = require('gitlab')({
-  			url:   'http://example.com',
-  			token: 'abcdefghij123456'
+  			url: env.gitlab.host,
+  			token: env.gitlab.token
 		});
 
 		app.use(bodyParser.json());
@@ -36,10 +36,10 @@ module.exports = {
 		});
 
 		var worker = new GitlabWorker(gitlab);
+		worker.start();
 
 		var job = new CronJob(env.cron.time, function(){
-			worker.start();
-			console.log('Start all Jbos' + new Date());
+			//console.log('Start all Jbos' + new Date());
 		}, function(){
 
 		}, true, env.cron.timezone);

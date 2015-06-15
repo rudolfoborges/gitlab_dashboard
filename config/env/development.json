@@ -1,9 +1,13 @@
 {
 	"mongo": {
-		"url": "mongodb://localhost:27017/theclass"
+		"url": "mongodb://localhost:27017/gitlab"
 	},
 	"cron": {
 		"time": "*/1 * * * *",
 		"timezone": "America/Bahia"
+	},
+	"gitlab": {
+		"host": "http://gitcosis.tjba.jus.br",
+		"token": "gxzrSjAE1pNUpCzb7oEh"
 	}
 }
