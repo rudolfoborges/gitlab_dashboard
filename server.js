@@ -1,11 +1,11 @@
 'use strict';
 
-var app = require('./config/app'),
+var app = require('./server/app'),
 	env = require('./config/env').load();
 
-app.bootstrap(env, __dirname, function(context){
+app.bootstrap(env, __dirname, function(server){
 	var port = process.env.PORT || 3000;
-	context.listen(port, function() {
+	server.listen(port, function() {
 		console.log("Listening on " + port);
 	});
 });
