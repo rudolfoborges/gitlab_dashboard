@@ -4,7 +4,7 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+var userSchema = new Schema({
 	id: {
 		type: Number,
 		unique: true
@@ -16,9 +16,9 @@ var UserSchema = new Schema({
 	name: {
 		type: String
 	},
-	created_at: {
+	createdAt: {
 		type: Date
 	}
 });
 
-mongoose.model('User', UserSchema);
+mongoose.model('User', userSchema);

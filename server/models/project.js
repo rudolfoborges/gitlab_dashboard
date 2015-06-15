@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
-var ProjectSchema = new Schema({
+var projectSchema = new Schema({
 	id: {
 		type: Number,
 		unique: true
@@ -14,19 +14,19 @@ var ProjectSchema = new Schema({
 	path: {
 		type: String
 	},
-	default_branch: {
+	defaultBranch: {
 		type: String
 	},
-	is_private: {
+	isPrivate: {
 		type: Boolean
 	},
 	owner: {
 		type: String
 	},
-	created_at: {
+	createdAt: {
 		type: Date
 	}
 });
 
 
-mongoose.model('Project', ProjectSchema);
+mongoose.model('Project', projectSchema);
