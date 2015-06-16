@@ -15,6 +15,9 @@ var userSchema = new Schema({
 	name: {
 		type: String
 	},
+	username: {
+		type: String
+	},
 	createdAt: {
 		type: Date
 	}

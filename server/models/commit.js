@@ -5,8 +5,7 @@ var mongoose = require('mongoose'),
 
 var commitSchema = new Schema({
 	hash: {
-		type: String,
-		unique: true
+		type: String
 	},
 	shortHash: {
 		type: String
