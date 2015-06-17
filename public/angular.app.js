@@ -3,10 +3,15 @@
 
 	angular
 		.module('app', ['ui.router'])
-
-	.config(['$locationProvider', '$httpProvider', '$provide',
-			function($locationProvider, $httpProvider, $provide){
-				$locationProvider.html5Mode(false).hashPrefix('!');
-	}]);
+		.constant('API', {
+			PROJECT: '/api/projects',
+			USER: '/api/users',
+			COMMIT: '/api/commits',
+			RANKING: '/api/ranking'
+		})
+		.config(['$locationProvider', '$httpProvider', '$provide',
+				function($locationProvider, $httpProvider, $provide){
+					$locationProvider.html5Mode(false).hashPrefix('!');
+		}]);
 
 })();

@@ -1,24 +1,24 @@
 (function(){
 	'use strict';
 
-	angular.module('app')
+	angular
+		.module('app')
+		.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
-	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+			$stateProvider
+			    .state('dashboard', {
+			      url: "/dashboard",
+			      views: {
+			        "contentView": { 
+			        	templateUrl: "templates/dashboard.html",
+			        	controller: 'DashboardController as ctrl'
+			        }
+			      }
+			    });
 
-		$stateProvider
-		    .state('dashboard', {
-		      url: "/dashboard",
-		      views: {
-		        "contentView": { 
-		        	templateUrl: "templates/dashboard.html"
-		        	//controller: 'DashboardController as ctrl'
-		        }
-		      }
-		    });
+		
+			$urlRouterProvider.otherwise("/dashboard");
 
-	
-		$urlRouterProvider.otherwise("/dashboard");
-
-	}]);
+		}]);
 
 })();

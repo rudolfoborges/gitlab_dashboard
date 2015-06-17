@@ -6,7 +6,7 @@
                 <h5>Projetos</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">20</h1>
+                <h1 class="no-margins">{{ctrl.projects.length}}</h1>
             </div>
         </div>
     </div>
@@ -14,10 +14,10 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
             	<span class="label label-info pull-right"><i class="fa fa-users"></i></span>
-                <h5>Membros</h5>
+                <h5>Usuários</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">50</h1>
+                <h1 class="no-margins">{{ctrl.users.length}}</h1>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
                 <h5>Commits</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">500</h1>
+                <h1 class="no-margins">{{ctrl.commits.length}}</h1>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
             <div class="ibox-content">
                 <div>
                     <h3 class="font-bold no-margins">
-                        Atividades
+                        Commits / Projeto
                     </h3>
                 </div>
 
@@ -72,25 +72,17 @@
 
 <div class="row">
 
-	<div class="col-lg-4">
+	<div class="col-lg-4" ng-repeat="item in ctrl.ranking">
         <div class="contact-box">
             <a href="profile.html">
             <div class="col-sm-4">
                 <div class="text-center">
-                    <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a2.jpg">
-                    <div class="m-t-xs font-bold">1</div>
+                    <div class="m-t-xs font-bold" style="font-size: 20pt;">{{$index + 1}}</div>
                 </div>
             </div>
             <div class="col-sm-8">
-                <h3><strong>Rudolfo Borges</strong></h3>
-                <p><i class="fa fa-map-marker"></i> 55 commits</p>
-                <address>
-                    <strong>Projetos</strong><br>
-                    Aaaaaaa<br>
-                    Bbbbbb<br>
-                    Ccccccc<br>
-                    ...<br>
-                </address>
+                <h3><strong>{{item.user.name.substring(0, 15)}}...</strong></h3>
+                <p><i class="fa fa-map-marker"></i> {{item.commits}} commit(s)</p>
             </div>
             <div class="clearfix"></div>
                 </a>

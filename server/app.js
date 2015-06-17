@@ -24,9 +24,7 @@ module.exports = {
 
 		app.use(express.static(path.join(__basedir, 'public')));
 
-		app.get('/', function(req, res) {
-			res.render('index');
-		});
+
 
 		mongoose.connect(env.mongo.url);
 
@@ -35,8 +33,14 @@ module.exports = {
 		  if (~file.indexOf('.js')) require(__basedir + '/server/models/' + file);
 		});
 
+		app.get('/', function(req, res) {
+			res.render('index');
+		});
+
+		app.use('/api', require(__basedir + '/server/routes'));
+
 		var worker = new GitlabWorker(gitlab);
-		worker.start();
+		//worker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());
