@@ -40,7 +40,7 @@ module.exports = {
 		app.use('/api', require(__basedir + '/server/routes'));
 
 		var worker = new GitlabWorker(gitlab);
-		//worker.start();
+		worker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());

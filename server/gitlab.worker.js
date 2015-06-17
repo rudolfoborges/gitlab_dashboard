@@ -5,13 +5,14 @@ module.exports = function(gitlab){
 	var async = require('async'),
 		Promise = require('promise'),
 		mongoose = require('mongoose'),
+		Hash = require('./common/hash'),
 		User = mongoose.model('User'),
 		Project = mongoose.model('Project'),
 		Commit = mongoose.model('Commit'),
 		Ranking = mongoose.model('Ranking');
 
 
-	function allProjects(){
+	function projects(){
 		return new Promise(function(resolve, reject){
 
 			Project.remove({}, function(err){
@@ -43,7 +44,7 @@ module.exports = function(gitlab){
 		});
 	}
 
-	function allUsers() {
+	function users() {
 		return new Promise(function(resolve, reject){
 
 			User.remove({}, function(err){
@@ -75,7 +76,7 @@ module.exports = function(gitlab){
 		});
 	}
 
-	function allCommtis(){
+	function commtis(){
 
 		return new Promise(function(resolve, reject) {
 
@@ -125,7 +126,7 @@ module.exports = function(gitlab){
 		});
 	}
 
-	function createRanking(){
+	function ranking(){
 		return new Promise(function(resolve, reject){
 
 			Ranking.remove({}, function(err){
@@ -163,33 +164,58 @@ module.exports = function(gitlab){
 		});
 	}
 
+	function commitsByProject(){
+		//return new Promise(function(resolve, reject){
+			var hash = new Hash();
+			Commit.find().sort({createdAt: -1}).populate('project').exec(function(err, commits){
+				commits.forEach(function(commit){
+					processCommit(commit);
+				});
+
+				hash.toString();
+			});
+
+			function processCommit(commit){
+				var project = commit.project;
+				if(!hash.contains(project)){
+					hash.push(project, 0);
+				}
+
+				var countCommits = hash.get(project) + 1;
+				hash.push(project, countCommits);
+			}
+		//});
+	}
+
 	var clazz = {
 		start: function(){
-			async.waterfall([
+			/*async.waterfall([
 				function(callback){
-					allUsers().then(function(data, err){
+					users().then(function(data, err){
 						if(!err) callback();
 						else console.log(err);
 					})
 				},
 				function(callback){
-					allProjects().then(function(data, err){
+					projects().then(function(data, err){
 						if(!err) callback();
 						else console.log(err);
 					})
 				},
 				function(callback){
-					allCommtis().then(function(data, err){
+					commtis().then(function(data, err){
 						if(!err) callback();
 						else console.log(err);
 					});
 				},
 				function(callback){
-					createRanking().then(function(data, err){
+					ranking().then(function(data, err){
 						if(err) console.log(err);
 					});
 				}
-			]);
+			]);*/
+
+			commitsByProject();
 		}		
 	}
 
