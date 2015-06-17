@@ -9,7 +9,8 @@ module.exports = function(gitlab){
 		User = mongoose.model('User'),
 		Project = mongoose.model('Project'),
 		Commit = mongoose.model('Commit'),
-		Ranking = mongoose.model('Ranking');
+		Ranking = mongoose.model('Ranking'),
+		ProjectCommit = mongoose.model('ProjectCommit');
 
 
 	function projects(){
@@ -172,7 +173,14 @@ module.exports = function(gitlab){
 					processCommit(commit);
 				});
 
-				hash.toString();
+				setTimeout(function(){
+					var keys = hash.getKeys();
+					keys.forEach(function(project){
+						var commits = hash.get(project);
+						saveProjectCommits(project, commits);
+					});
+				}, 60000);
+				
 			});
 
 			function processCommit(commit){
@@ -184,6 +192,16 @@ module.exports = function(gitlab){
 				var countCommits = hash.get(project) + 1;
 				hash.push(project, countCommits);
 			}
+
+			function saveProjectCommits(project, commits){
+				var projectCommit = new ProjectCommit();
+				projectCommit.project = project;
+				projectCommit.commits = commits;
+				projectCommit.save(function(err){
+					if(err) console.log(err);
+				});
+			}
+
 		//});
 	}
 

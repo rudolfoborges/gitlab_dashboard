@@ -31,9 +31,8 @@ module.exports = function(){
 			return indexOf(key) >= 0;
 		},
 
-		toString: function(){
-			console.log('Keys' + keys);
-			console.log('Values' + values);
+		getKeys: function(){
+			return keys;
 		}
 
 	};

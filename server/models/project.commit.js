@@ -18,4 +18,4 @@ var commitProjectSchema = new Schema({
 	}
 });
 
-mongoose.model('CommitProject', commitProjectSchema);
+mongoose.model('ProjectCommit', commitProjectSchema);
