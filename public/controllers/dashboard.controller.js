@@ -12,6 +12,7 @@
 		ctrl.users = [];
 		ctrl.commits = [];
 		ctrl.ranking = [];
+		ctrl.barChart;
 
 		ctrl.init = function(){
 			$http.get(API.PROJECT).then(function(res){
@@ -29,8 +30,17 @@
 			$http.get(API.RANKING).then(function(res){
 				ctrl.ranking = res.data;
 			});
-		}
 
+			var projectsCommits = [['Projeto', 'Commits']];
+			$http.get(API.PROJECT + '/commits').then(function(res){
+				res.data.forEach(function(item){
+					projectsCommits.push([item.project.name, item.commits]);
+				});
+				ctrl.barChart = new Chart();
+				ctrl.barChart.setData(projectsCommits);
+				ctrl.barChart.setOptions({});
+			});
+		}
 
 		ctrl.init();
 	}

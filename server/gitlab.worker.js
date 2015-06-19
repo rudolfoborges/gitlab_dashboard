@@ -166,22 +166,31 @@ module.exports = function(gitlab){
 	}
 
 	function commitsByProject(){
-		//return new Promise(function(resolve, reject){
+		return new Promise(function(resolve, reject){
 			var hash = new Hash();
-			Commit.find().sort({createdAt: -1}).populate('project').exec(function(err, commits){
-				commits.forEach(function(commit){
-					processCommit(commit);
-				});
 
-				setTimeout(function(){
-					var keys = hash.getKeys();
-					keys.forEach(function(project){
-						var commits = hash.get(project);
-						saveProjectCommits(project, commits);
-					});
-				}, 60000);
-				
+			ProjectCommit.remove({}, function(err){
+				if(!err) getAllCommits();
+				else console.log(err);
 			});
+
+			function getAllCommits(){
+				Commit.find().sort({createdAt: -1}).populate('project').exec(function(err, commits){
+					commits.forEach(function(commit){
+						processCommit(commit);
+					});
+
+					setTimeout(function(){
+						var keys = hash.getKeys();
+						keys.forEach(function(project){
+							var commits = hash.get(project);
+							saveProjectCommits(project, commits);
+						});
+						resolve('done');
+					}, 60000);
+					
+				});
+			}
 
 			function processCommit(commit){
 				var project = commit.project;
@@ -202,38 +211,45 @@ module.exports = function(gitlab){
 				});
 			}
 
-		//});
+		});
 	}
 
 	var clazz = {
 		start: function(){
-			/*async.waterfall([
+			async.waterfall([
 				function(callback){
 					users().then(function(data, err){
-						if(!err) callback();
+						if(!err) {console.log('Import Users'); callback();}
 						else console.log(err);
 					})
 				},
 				function(callback){
 					projects().then(function(data, err){
-						if(!err) callback();
+						if(!err) {console.log('Import Projects'); callback();}
 						else console.log(err);
 					})
 				},
 				function(callback){
 					commtis().then(function(data, err){
-						if(!err) callback();
+						if(!err) {console.log('Import Commits'); callback();}
 						else console.log(err);
 					});
 				},
 				function(callback){
 					ranking().then(function(data, err){
-						if(err) console.log(err);
+						if(!err) {console.log('Create Ranking'); callback();}
+						else console.log(err);
+					});
+				},
+				function(callback){
+					commitsByProject().then(function(data, err){
+						if(!err) console.log('Create Projects Commits'); 
+						else console.log(err);
 					});
 				}
-			]);*/
+			]);
 
-			commitsByProject();
+			
 		}		
 	}
 

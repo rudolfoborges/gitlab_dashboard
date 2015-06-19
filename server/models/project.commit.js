@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 var commitProjectSchema = new Schema({
 	project: {
 		type: Schema.Types.ObjectId,
-	 	ref: 'Porject'
+	 	ref: 'Project'
 	},
 	commits : {
 		type: Number,
