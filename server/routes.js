@@ -22,6 +22,7 @@ var express = require('express'),
 (function(){
 	var controller = require('./controllers/commit.controller');
 	router.route('/commits').get(controller.index);
+	router.route('/commits/numbers').get(controller.commitsForNumbers);
 })();
 
 //Ranking Routes

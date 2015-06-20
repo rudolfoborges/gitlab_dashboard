@@ -10,7 +10,8 @@ module.exports = function(gitlab){
 		Project = mongoose.model('Project'),
 		Commit = mongoose.model('Commit'),
 		Ranking = mongoose.model('Ranking'),
-		ProjectCommit = mongoose.model('ProjectCommit');
+		ProjectCommit = mongoose.model('ProjectCommit'),
+		CommitsNumber = mongoose.model('CommitsNumber');
 
 
 	function projects(){
@@ -195,11 +196,11 @@ module.exports = function(gitlab){
 			function processCommit(commit){
 				var project = commit.project;
 				if(!hash.contains(project)){
-					hash.push(project, 0);
+					hash.put(project, 0);
 				}
 
 				var countCommits = hash.get(project) + 1;
-				hash.push(project, countCommits);
+				hash.put(project, countCommits);
 			}
 
 			function saveProjectCommits(project, commits){
@@ -211,6 +212,58 @@ module.exports = function(gitlab){
 				});
 			}
 
+		});
+	}
+
+	function numberCommitsForDay(){
+		return new Promise(function(resolve, reject){
+			Date.prototype.dateFormat = function(){
+				return this.getFullYear().toString() + '-' + (this.getMonth()+1).toString() + '-' + this.getDate().toString();
+			}
+
+			var hash = new Hash();
+
+			CommitsNumber.remove({}, function(err){
+				if(!err) getAllCommits();
+				else console.log(err);
+			});
+
+			function getAllCommits(){
+				Commit.find().sort({createdAt: -1}).populate('project').populate('user').exec(function(err, commits){
+					commits.forEach(function(commit){
+						processCommit(commit);
+					});
+
+					setTimeout(function(){
+						var keys = hash.getKeys();
+						keys.forEach(function(createdAt){
+							var commits = hash.get(createdAt);
+							saveProjectCommits(createdAt, commits);
+						});
+						resolve('done');
+					}, 60000);
+					
+				});
+			}
+
+			function processCommit(commit){
+				var createdAt = commit.createdAt.dateFormat();
+				if(!hash.contains(createdAt)){
+					hash.put(createdAt, 0);
+				}
+
+				var countCommits = hash.get(createdAt) + 1;
+				hash.put(createdAt, countCommits);
+			}
+
+			function saveProjectCommits(createdAt, commits){
+				var commitsNumber = new CommitsNumber();
+				commitsNumber.createdAt = new Date(createdAt);
+				commitsNumber.commits = commits;
+				commitsNumber.save(function(err){
+					if(err) console.log(err);
+				});
+			}
 		});
 	}
 
@@ -243,7 +296,13 @@ module.exports = function(gitlab){
 				},
 				function(callback){
 					commitsByProject().then(function(data, err){
-						if(!err) console.log('Create Projects Commits'); 
+						if(!err) {console.log('Create Projects Commits'); callback();} 
+						else console.log(err);
+					});
+				},
+				function(callback){
+					numberCommitsForDay().then(function(data, err){
+						if(!err) console.log('Create Commits Number for Day'); 
 						else console.log(err);
 					});
 				}

@@ -13,7 +13,7 @@ exports.index = function(req, res){
 }
 
 exports.commits = function(req, res){
-	ProjectCommit.find().populate('project').exec(function(err, data){
+	ProjectCommit.find().populate('project').sort({commits: -1}).limit(8).exec(function(err, data){
 		if(!err) res.status(200).json(data);
 		else res.status(500).json({error: err});
 	});

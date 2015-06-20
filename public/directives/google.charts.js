@@ -2,41 +2,45 @@
 
 	angular
 		.module('app')
-		.controller('ChartController', ['$scope', ChartController])
-		.directive('chart', charBarDirective);
-
+		.directive('goChart', charBarDirective);
 
 	function charBarDirective(){
 
 		return {
 			restrict: 'A',
-			//controller: 'ChartController',
-			link: function($scope, $elem, $attr){
-  				var data = google.visualization.arrayToDataTable([
-		        	["Element", "Density", { role: "style" } ],
-		        	["Copper", 8.94, "#b87333"],
-		        	["Silver", 10.49, "silver"],
-		        	["Gold", 19.30, "gold"],
-		        	["Platinum", 21.45, "color: #e5e4e2"]
-		      	]);
-				var chart = new google.visualization.BarChart($elem[0]);
-				chart.draw(data, {});
+			link: function($scope, $elem, $attrs){
+
+				$scope.$watch($attrs.goChartModel, function(model){
+					if(model) {
+						console.log(model.getData());
+						var data = google.visualization.arrayToDataTable(model.getData());
+						var chart;
+
+						if(google.visualization[model.getChartType()]){
+							chart = new google.visualization[model.getChartType()]($elem[0]);
+						} else {
+							chart = new google.charts[model.getChartType()]($elem[0]);
+						}
+
+						if(chart){
+							chart.draw(data, model.getOptions());
+						}
+					}
+				});
+
+  				
 			}
   		}
   	}
 
-	function ChartController($scope){
-
-	}
-
 	google.setOnLoadCallback(function() {  
 	    angular.bootstrap(document.body, ['app']);
 	});
-	google.load('visualization', '1', {packages: ['corechart']});
+	google.load("visualization", "1.1", {packages:['bar', 'calendar']});
 
 })();
 
-function Chart(){
+function Chart(chartType){
 	var data = [];
 	var options = {};
 
@@ -52,6 +56,9 @@ function Chart(){
 		},
 		getOptions: function(){
 			return options;
+		},
+		getChartType: function(){
+			return chartType;
 		}
 	};
 

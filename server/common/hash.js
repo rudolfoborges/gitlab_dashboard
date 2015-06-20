@@ -10,7 +10,7 @@ module.exports = function(){
 
 	var clazz = {
 
-		push: function(key, value){
+		put: function(key, value){
 			var index = indexOf(key);
 			if(index >= 0){
 				values[index] = value;

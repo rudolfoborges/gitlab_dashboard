@@ -1,6 +1,8 @@
 (function(){
 	'use strict';
 
+	
+
 	angular
 		.module('app')
 		.controller('DashboardController', ['$scope', '$http', 'API', DashboardController]);
@@ -13,8 +15,11 @@
 		ctrl.commits = [];
 		ctrl.ranking = [];
 		ctrl.barChart;
+		ctrl.calendarChart;
 
 		ctrl.init = function(){
+			
+
 			$http.get(API.PROJECT).then(function(res){
 				ctrl.projects = res.data;
 			});
@@ -36,9 +41,20 @@
 				res.data.forEach(function(item){
 					projectsCommits.push([item.project.name, item.commits]);
 				});
-				ctrl.barChart = new Chart();
+				ctrl.barChart = new Chart('Bar');
 				ctrl.barChart.setData(projectsCommits);
 				ctrl.barChart.setOptions({});
+			});
+
+			var commitsNumbers = [['Data', 'Quantidade']];
+			$http.get(API.COMMIT + '/numbers').then(function(res){
+				res.data.forEach(function(item){
+					console.log(item.createdAt.substring(0,10));
+					commitsNumbers.push([new Date(item.createdAt.substring(0,10)), item.commits]);
+				});
+				ctrl.calendarChart = new Chart('Calendar');
+				ctrl.calendarChart.setData(commitsNumbers);
+				ctrl.calendarChart.setOptions({});
 			});
 		}
 
