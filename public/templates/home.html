@@ -1,4 +1,4 @@
-<div class="rown animated fadeIn">
+<div class="row animated fadeIn">
 	<div class="col-md-4">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -41,7 +41,7 @@
             <div class="ibox-content">
                 <div>
                     <h3 class="font-bold no-margins">
-                        Commits / Projects
+                        Commits / Projects / TOP 10
                     </h3>
                 </div>
 
@@ -91,23 +91,32 @@
 
 
 <div class="row animated fadeIn">
-
-	<div class="col-lg-4" ng-repeat="item in ctrl.ranking">
-        <div class="contact-box">
-            <a href="profile.html">
-            <div class="col-sm-4">
-                <div class="text-center">
-                    <div class="m-t-xs font-bold" style="font-size: 20pt;">{{$index + 1}}</div>
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Users Ranking / Monthly </h5>
+            </div>
+            <div class="row">
+                <br/>
+                <div class="col-lg-4" ng-repeat="item in ctrl.ranking">
+                    <div class="contact-box">
+                        <a href="profile.html">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <div class="m-t-xs font-bold" style="font-size: 20pt;">{{$index + 1}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3><strong>{{item.user.name.substring(0, 15)}}...</strong></h3>
+                            <p><i class="fa fa-code-fork"></i> {{item.commits}} commit(s)</p>
+                        </div>
+                        <div class="clearfix"></div>
+                            </a>
+                    </div>
                 </div>
+
             </div>
-            <div class="col-sm-8">
-                <h3><strong>{{item.user.name.substring(0, 15)}}...</strong></h3>
-                <p><i class="fa fa-code-fork"></i> {{item.commits}} commit(s)</p>
-            </div>
-            <div class="clearfix"></div>
-                </a>
         </div>
     </div>
-
 </div>
 

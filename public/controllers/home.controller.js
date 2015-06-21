@@ -23,7 +23,7 @@
 				ctrl.commits = res.data;
 			});
 
-			$http.get(API.RANKING).then(function(res){
+			$http.get(API.RANKING + '/monthly').then(function(res){
 				ctrl.ranking = res.data;
 			});
 

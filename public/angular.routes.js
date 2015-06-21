@@ -25,13 +25,24 @@
 			      }
 			    })
 
-			    .state('dashboard.ranking', {
-			      url: "/ranking",
+			    .state('dashboard.ranking_users', {
+			      url: "/ranking/users",
 			      cache: true,
 			      views: {
 			        "contentView": { 
-			        	templateUrl: "templates/ranking.html",
-			        	controller: 'RankingController as ctrl'
+			        	templateUrl: "templates/user.ranking.html",
+			        	controller: 'UserRankingController as ctrl'
+			        }
+			      }
+			    })
+
+			    .state('dashboard.ranking_projects', {
+			      url: "/ranking/projects",
+			      cache: true,
+			      views: {
+			        "contentView": { 
+			        	templateUrl: "templates/user.ranking.html",
+			        	controller: 'UserRankingController as ctrl'
 			        }
 			      }
 			    });

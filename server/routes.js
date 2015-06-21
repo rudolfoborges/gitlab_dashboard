@@ -29,6 +29,7 @@ var express = require('express'),
 (function(){
 	var controller = require('./controllers/ranking.controller');
 	router.route('/ranking').get(controller.index);
+	router.route('/ranking/monthly').get(controller.monthly);
 })();
 
 module.exports = router;

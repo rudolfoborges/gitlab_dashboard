@@ -11,7 +11,8 @@ module.exports = function(gitlab){
 		Commit = mongoose.model('Commit'),
 		Ranking = mongoose.model('Ranking'),
 		ProjectCommit = mongoose.model('ProjectCommit'),
-		CommitsNumber = mongoose.model('CommitsNumber');
+		CommitsNumber = mongoose.model('CommitsNumber'),
+		RankingMonthly = mongoose.model('RankingMonthly');
 
 
 	function projects(){
@@ -124,7 +125,7 @@ module.exports = function(gitlab){
 
 			setTimeout(function(){
 				resolve('done');	
-			}, 60000);
+			}, 30000);
 		});
 	}
 
@@ -161,7 +162,49 @@ module.exports = function(gitlab){
 
 			setTimeout(function(){
 				resolve('done');	
-			}, 60000);
+			}, 30000);
+
+		});
+	}
+
+	function rankingMonthly(){
+		return new Promise(function(resolve, reject){
+			var gtDate = new Date();
+			var dayOfMonth = gtDate.getDate();
+			gtDate.setDate(gtDate.getDate() - dayOfMonth);
+
+			RankingMonthly.remove({}, function(err){
+				if(!err) getAllUsers();
+				else console.log(err);
+			});
+
+			function getAllUsers(){
+				User.find({}, function(err, users){
+					users.forEach(function(user){
+						rankingByUser(user);
+					});
+				});
+			}
+
+			function rankingByUser(user){
+				Commit.find({})
+					.populate('user')
+					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }])
+					.and({createdAt: {'$gt': gtDate}})
+					.count()
+					.exec(function(err, data){
+						var rankingMonthly = new RankingMonthly();
+						rankingMonthly.user = user;
+						rankingMonthly.commits = data;
+						rankingMonthly.save(function(err){
+							if(err) console.log(err);
+						});
+					});
+			}
+
+			setTimeout(function(){
+				resolve('done');	
+			}, 30000);
 
 		});
 	}
@@ -188,7 +231,7 @@ module.exports = function(gitlab){
 							saveProjectCommits(project, commits);
 						});
 						resolve('done');
-					}, 60000);
+					}, 30000);
 					
 				});
 			}
@@ -241,7 +284,7 @@ module.exports = function(gitlab){
 							saveProjectCommits(createdAt, commits);
 						});
 						resolve('done');
-					}, 60000);
+					}, 30000);
 					
 				});
 			}
@@ -290,19 +333,25 @@ module.exports = function(gitlab){
 				},
 				function(callback){
 					ranking().then(function(data, err){
-						if(!err) {console.log('Create Ranking'); callback();}
+						if(!err) {console.log('Created Ranking'); callback();}
+						else console.log(err);
+					});
+				},
+				function(callback){
+					rankingMonthly().then(function(data, err){
+						if(!err) {console.log('Created Monthly Ranking'); callback();}
 						else console.log(err);
 					});
 				},
 				function(callback){
 					commitsByProject().then(function(data, err){
-						if(!err) {console.log('Create Projects Commits'); callback();} 
+						if(!err) {console.log('Created Projects Commits'); callback();} 
 						else console.log(err);
 					});
 				},
 				function(callback){
 					numberCommitsForDay().then(function(data, err){
-						if(!err) console.log('Create Commits Number for Day'); 
+						if(!err) console.log('Created Commits Number for Day'); 
 						else console.log(err);
 					});
 				}
