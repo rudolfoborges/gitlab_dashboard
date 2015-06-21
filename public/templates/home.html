@@ -1,12 +1,12 @@
-<div class="row">
+<div class="rown animated fadeIn">
 	<div class="col-md-4">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
             	<span class="label label-success pull-right"><i class="fa fa-tasks"></i></span>
-                <h5>Projetos</h5>
+                <h5>Projects</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">{{ctrl.projects.length}}</h1>
+                <h1 class="no-margins">{{projects.length}}</h1>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
             	<span class="label label-info pull-right"><i class="fa fa-users"></i></span>
-                <h5>Usuários</h5>
+                <h5>Users</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins">{{ctrl.users.length}}</h1>
@@ -35,13 +35,13 @@
 
 </div>
 
-<div class="row">
+<div class="row animated fadeIn">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-content">
                 <div>
                     <h3 class="font-bold no-margins">
-                        Commits / Projeto
+                        Commits / Projects
                     </h3>
                 </div>
 
@@ -61,13 +61,13 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row animated fadeIn">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-content">
                 <div>
                     <h3 class="font-bold no-margins">
-                        Commits / Mês-Ano
+                        Commits
                     </h3>
                 </div>
 
@@ -76,12 +76,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div>
-                                <div go-chart go-chart-model="ctrl.calendarChart"></div>
+                                <div go-chart go-chart-model="ctrl.calendarChart" style="width: 100%"></div>
                             </div>
                         </div>
                     </div>
 
                 </div>
+
 
             </div>
         </div>
@@ -89,7 +90,7 @@
 </div>
 
 
-<div class="row">
+<div class="row animated fadeIn">
 
 	<div class="col-lg-4" ng-repeat="item in ctrl.ranking">
         <div class="contact-box">

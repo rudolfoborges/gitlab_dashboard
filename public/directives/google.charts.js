@@ -12,7 +12,6 @@
 
 				$scope.$watch($attrs.goChartModel, function(model){
 					if(model) {
-						console.log(model.getData());
 						var data = google.visualization.arrayToDataTable(model.getData());
 						var chart;
 

@@ -21,37 +21,15 @@
     <script src="angular.routes.js"></script>
     <script src="directives/google.charts.js"></script>
     <script src="controllers/dashboard.controller.js"></script>
+    <script src="controllers/home.controller.js"></script>
+    <script src="controllers/ranking.controller.js"></script>
     <!-- endbuild -->
 </head>
 <body ng-app="app">
 	
 	<body class="top-navigation pace-done fixed-nav">
 
-    <div id="wrapper">
-        <div id="page-wrapper" class="gray-bg">
-	        <div class="row border-bottom white-bg">
-		        <nav class="navbar navbar-fixed-top" role="navigation">
-		            <div class="navbar-header">
-		                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-		                    <i class="fa fa-reorder"></i>
-		                </button>
-		                <a href="/#!/" class="navbar-brand"><i class="fa fa-bar-chart"></i> Gitlab Metric Dashboard</a>
-		            </div>
-		        </nav>
-	        </div>
-	        <div class="wrapper wrapper-content">
-	            <div class="container">
-					<div ui-view="contentView"></div>
-	            </div>
-	        </div>
-		        <div class="footer fixed">
-		            <div>
-		                <strong>Copyright</strong> TreeMobi &copy; 2015
-		            </div>
-		        </div>
-
-	        </div>
-        </div>
+        <ui-view></ui-view>
 		
         <script src="lib/jquery/dist/jquery.min.js"></script>
     	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
