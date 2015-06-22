@@ -261,7 +261,7 @@ module.exports = function(gitlab){
 	function numberCommitsForDay(){
 		return new Promise(function(resolve, reject){
 			Date.prototype.dateFormat = function(){
-				return this.getFullYear().toString() + this.getMonth().toString() + this.getDate().toString();
+				return this.getFullYear().toString() + '-' + (this.getMonth()).toString() + '-' + this.getDate().toString();
 			}
 
 			var hash = new Hash();
@@ -284,7 +284,7 @@ module.exports = function(gitlab){
 							saveProjectCommits(createdAt, commits);
 						});
 						resolve('done');
-					}, 30000);
+					}, 10000);
 					
 				});
 			}
@@ -300,8 +300,9 @@ module.exports = function(gitlab){
 			}
 
 			function saveProjectCommits(createdAt, commits){
+				var dateSplit = createdAt.split('-');
 				var commitsNumber = new CommitsNumber();
-				commitsNumber.createdAt = new Date(createdAt);
+				commitsNumber.createdAt = new Date(dateSplit[0], dateSplit[1], dateSplit[2]);
 				commitsNumber.commits = commits;
 				commitsNumber.save(function(err){
 					if(err) console.log(err);
@@ -313,7 +314,7 @@ module.exports = function(gitlab){
 	var clazz = {
 		start: function(){
 			async.waterfall([
-				function(callback){
+				/*function(callback){
 					users().then(function(data, err){
 						if(!err) {console.log('Import Users'); callback();}
 						else console.log(err);
@@ -348,7 +349,7 @@ module.exports = function(gitlab){
 						if(!err) {console.log('Created Projects Commits'); callback();} 
 						else console.log(err);
 					});
-				},
+				},*/
 				function(callback){
 					numberCommitsForDay().then(function(data, err){
 						if(!err) console.log('Created Commits Number for Day'); 
