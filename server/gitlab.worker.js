@@ -261,7 +261,7 @@ module.exports = function(gitlab){
 	function numberCommitsForDay(){
 		return new Promise(function(resolve, reject){
 			Date.prototype.dateFormat = function(){
-				return this.getFullYear().toString() + '-' + (this.getMonth()+1).toString() + '-' + this.getDate().toString();
+				return this.getFullYear().toString() + this.getMonth().toString() + this.getDate().toString();
 			}
 
 			var hash = new Hash();
