@@ -28,8 +28,11 @@ var express = require('express'),
 //Ranking Routes
 (function(){
 	var controller = require('./controllers/ranking.controller');
-	router.route('/ranking').get(controller.index);
-	router.route('/ranking/monthly').get(controller.monthly);
+	router.route('/ranking/users').get(controller.userAll);
+	router.route('/ranking/users/monthly').get(controller.userMonthly);
+
+	router.route('/ranking/projects').get(controller.projectAll);
+	router.route('/ranking/projects/monthly').get(controller.projectMonthly);
 })();
 
 module.exports = router;

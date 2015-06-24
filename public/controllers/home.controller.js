@@ -10,7 +10,8 @@
 
 		ctrl.users = [];
 		ctrl.commits = [];
-		ctrl.ranking = [];
+		ctrl.usersRanking = [];
+		ctrl.projectsRanking = [];
 		ctrl.barChart;
 		ctrl.calendarChart;
 
@@ -23,8 +24,12 @@
 				ctrl.commits = res.data;
 			});
 
-			$http.get(API.RANKING + '/monthly').then(function(res){
-				ctrl.ranking = res.data;
+			$http.get(API.RANKING + '/users/monthly').then(function(res){
+				ctrl.usersRanking = res.data;
+			});
+
+			$http.get(API.RANKING + '/projects/monthly').then(function(res){
+				ctrl.projectsRanking = res.data;
 			});
 
 			var projectsCommits = [['Project', 'Commits']];

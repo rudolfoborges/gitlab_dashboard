@@ -16,6 +16,9 @@ var commitSchema = new Schema({
 	authorEmail: {
 		type: String
 	},
+	projectId: {
+		type: Number
+	},
 	project: {
 		type: Schema.Types.ObjectId,
 	 	ref: 'Project'

@@ -9,10 +9,11 @@ module.exports = function(gitlab){
 		User = mongoose.model('User'),
 		Project = mongoose.model('Project'),
 		Commit = mongoose.model('Commit'),
-		Ranking = mongoose.model('Ranking'),
+		UserRanking = mongoose.model('UserRanking'),
 		ProjectCommit = mongoose.model('ProjectCommit'),
 		CommitsNumber = mongoose.model('CommitsNumber'),
-		RankingMonthly = mongoose.model('RankingMonthly');
+		UserRankingMonthly = mongoose.model('UserRankingMonthly'),
+		ProjectRankingMonthly = mongoose.model('ProjectRankingMonthly');
 
 
 	function projects(){
@@ -112,6 +113,7 @@ module.exports = function(gitlab){
 				commit.authorEmail = data.author_email;
 				commit.createdAt = data.created_at;
 				commit.project = project;
+				commit.projectId = project.remoteId;
 
 				User.findOne({name: data.name}, function(err, user){
 					if(user) { 
@@ -129,10 +131,10 @@ module.exports = function(gitlab){
 		});
 	}
 
-	function ranking(){
+	function userRanking(){
 		return new Promise(function(resolve, reject){
 
-			Ranking.remove({}, function(err){
+			UserRanking.remove({}, function(err){
 				if(!err) getAllUsers();
 				else console.log(err);
 			});
@@ -151,7 +153,7 @@ module.exports = function(gitlab){
 					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }])
 					.count()
 					.exec(function(err, data){
-						var ranking = new Ranking();
+						var ranking = new UserRanking();
 						ranking.user = user;
 						ranking.commits = data;
 						ranking.save(function(err){
@@ -167,13 +169,13 @@ module.exports = function(gitlab){
 		});
 	}
 
-	function rankingMonthly(){
+	function userRankingMonthly(){
 		return new Promise(function(resolve, reject){
 			var gtDate = new Date();
 			var dayOfMonth = gtDate.getDate();
 			gtDate.setDate(gtDate.getDate() - dayOfMonth);
 
-			RankingMonthly.remove({}, function(err){
+			UserRankingMonthly.remove({}, function(err){
 				if(!err) getAllUsers();
 				else console.log(err);
 			});
@@ -193,8 +195,48 @@ module.exports = function(gitlab){
 					.and({createdAt: {'$gt': gtDate}})
 					.count()
 					.exec(function(err, data){
-						var rankingMonthly = new RankingMonthly();
+						var rankingMonthly = new UserRankingMonthly();
 						rankingMonthly.user = user;
+						rankingMonthly.commits = data;
+						rankingMonthly.save(function(err){
+							if(err) console.log(err);
+						});
+					});
+			}
+
+			setTimeout(function(){
+				resolve('done');	
+			}, 10000);
+
+		});
+	}
+
+	function projectRankingMonthly(){
+		return new Promise(function(resolve, reject){
+			var gtDate = new Date();
+			var dayOfMonth = gtDate.getDate();
+			gtDate.setDate(gtDate.getDate() - dayOfMonth);
+
+			ProjectRankingMonthly.remove({}, function(err){
+				if(!err) getAllProjects();
+				else console.log(err);
+			});
+
+			function getAllProjects(){
+				Project.find({}, function(err, projects){
+					projects.forEach(function(project){
+						rankingByProject(project);
+					});
+				});
+			}
+
+			function rankingByProject(project){
+				Commit.find({projectId: project.remoteId, createdAt: {'$gt': gtDate}})
+					.populate('project')
+					.count()
+					.exec(function(err, data){
+						var rankingMonthly = new ProjectRankingMonthly();
+						rankingMonthly.project = project;
 						rankingMonthly.commits = data;
 						rankingMonthly.save(function(err){
 							if(err) console.log(err);
@@ -333,13 +375,19 @@ module.exports = function(gitlab){
 					});
 				},
 				function(callback){
-					ranking().then(function(data, err){
+					userRanking().then(function(data, err){
 						if(!err) {console.log('Created Ranking'); callback();}
 						else console.log(err);
 					});
 				},
 				function(callback){
-					rankingMonthly().then(function(data, err){
+					userRankingMonthly().then(function(data, err){
+						if(!err) {console.log('Created Monthly Ranking'); callback();}
+						else console.log(err);
+					});
+				},
+				function(callback){
+					projectRankingMonthly().then(function(data, err){
 						if(!err) {console.log('Created Monthly Ranking'); callback();}
 						else console.log(err);
 					});

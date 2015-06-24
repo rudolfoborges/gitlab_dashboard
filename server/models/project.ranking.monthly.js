@@ -4,9 +4,9 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var schema = new Schema({
-	user: {
+	project: {
 		type: Schema.Types.ObjectId,
-	 	ref: 'User'
+	 	ref: 'Project'
 	},
 	commits : {
 		type: Number,
@@ -18,4 +18,4 @@ var schema = new Schema({
 	}
 });
 
-mongoose.model('RankingMonthly', schema);
+mongoose.model('ProjectRankingMonthly', schema);

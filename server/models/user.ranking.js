@@ -18,4 +18,4 @@ var rankingSchema = new Schema({
 	}
 });
 
-mongoose.model('Ranking', rankingSchema);
+mongoose.model('UserRanking', rankingSchema);

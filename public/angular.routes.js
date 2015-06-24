@@ -41,8 +41,30 @@
 			      cache: true,
 			      views: {
 			        "contentView": { 
-			        	templateUrl: "templates/user.ranking.html",
-			        	controller: 'UserRankingController as ctrl'
+			        	templateUrl: "templates/project.ranking.html",
+			        	controller: 'ProjectRankingController as ctrl'
+			        }
+			      }
+			    })
+
+			    .state('dashboard.userView', {
+			      url: "/users/:id/view",
+			      cache: true,
+			      views: {
+			        "contentView": { 
+			        	templateUrl: "templates/project.ranking.html",
+			        	controller: 'ProjectRankingController as ctrl'
+			        }
+			      }
+			    })
+
+			    .state('dashboard.projectView', {
+			      url: "/projects/:id/view",
+			      cache: true,
+			      views: {
+			        "contentView": { 
+			        	templateUrl: "templates/project.ranking.html",
+			        	controller: 'ProjectRankingController as ctrl'
 			        }
 			      }
 			    });
