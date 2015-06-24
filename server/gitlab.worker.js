@@ -125,7 +125,7 @@ module.exports = function(gitlab){
 
 			setTimeout(function(){
 				resolve('done');	
-			}, 30000);
+			}, 10000);
 		});
 	}
 
@@ -162,7 +162,7 @@ module.exports = function(gitlab){
 
 			setTimeout(function(){
 				resolve('done');	
-			}, 30000);
+			}, 10000);
 
 		});
 	}
@@ -204,7 +204,7 @@ module.exports = function(gitlab){
 
 			setTimeout(function(){
 				resolve('done');	
-			}, 30000);
+			}, 10000);
 
 		});
 	}
@@ -231,7 +231,7 @@ module.exports = function(gitlab){
 							saveProjectCommits(project, commits);
 						});
 						resolve('done');
-					}, 30000);
+					}, 10000);
 					
 				});
 			}
@@ -314,7 +314,7 @@ module.exports = function(gitlab){
 	var clazz = {
 		start: function(){
 			async.waterfall([
-				/*function(callback){
+				function(callback){
 					users().then(function(data, err){
 						if(!err) {console.log('Import Users'); callback();}
 						else console.log(err);
@@ -349,7 +349,7 @@ module.exports = function(gitlab){
 						if(!err) {console.log('Created Projects Commits'); callback();} 
 						else console.log(err);
 					});
-				},*/
+				},
 				function(callback){
 					numberCommitsForDay().then(function(data, err){
 						if(!err) console.log('Created Commits Number for Day'); 
