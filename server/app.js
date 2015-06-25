@@ -40,10 +40,11 @@ module.exports = {
 		app.use('/api', require(__basedir + '/server/routes'));
 
 		var worker = new GitlabWorker(gitlab);
-		//worker.start();
+		worker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());
+			//worker.start();
 		}, function(){
 
 		}, true, env.cron.timezone);
@@ -53,7 +54,3 @@ module.exports = {
 		callback(app);
 	}
 };
-
-
-
-

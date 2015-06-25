@@ -19,6 +19,9 @@ var commitSchema = new Schema({
 	projectId: {
 		type: Number
 	},
+	userId: {
+		type: Number
+	},
 	project: {
 		type: Schema.Types.ObjectId,
 	 	ref: 'Project'

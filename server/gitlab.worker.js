@@ -42,7 +42,7 @@ module.exports = function(gitlab){
 				project.createdAt = data.created_at;
 				project.save(function(err){
 					if(err) console.log(err);
-				});	
+				});
 			}
 
 		});
@@ -116,17 +116,18 @@ module.exports = function(gitlab){
 				commit.projectId = project.remoteId;
 
 				User.findOne({name: data.name}, function(err, user){
-					if(user) { 
+					if(user) {
 						commit.user = user;
+						commit.userId = user.remoteId;
 					}
 					commit.save(function(err){
 						if(err) console.log(err);
 					});
-				});	
+				});
 			}
 
 			setTimeout(function(){
-				resolve('done');	
+				resolve('done');
 			}, 10000);
 		});
 	}
@@ -163,7 +164,7 @@ module.exports = function(gitlab){
 			}
 
 			setTimeout(function(){
-				resolve('done');	
+				resolve('done');
 			}, 10000);
 
 		});
@@ -191,7 +192,7 @@ module.exports = function(gitlab){
 			function rankingByUser(user){
 				Commit.find({})
 					.populate('user')
-					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }])
+					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }, {authorEmail: new RegExp('^'+user.username+'$', "i")}])
 					.and({createdAt: {'$gt': gtDate}})
 					.count()
 					.exec(function(err, data){
@@ -205,7 +206,7 @@ module.exports = function(gitlab){
 			}
 
 			setTimeout(function(){
-				resolve('done');	
+				resolve('done');
 			}, 10000);
 
 		});
@@ -245,7 +246,7 @@ module.exports = function(gitlab){
 			}
 
 			setTimeout(function(){
-				resolve('done');	
+				resolve('done');
 			}, 10000);
 
 		});
@@ -274,7 +275,7 @@ module.exports = function(gitlab){
 						});
 						resolve('done');
 					}, 10000);
-					
+
 				});
 			}
 
@@ -327,7 +328,7 @@ module.exports = function(gitlab){
 						});
 						resolve('done');
 					}, 10000);
-					
+
 				});
 			}
 
@@ -394,23 +395,21 @@ module.exports = function(gitlab){
 				},
 				function(callback){
 					commitsByProject().then(function(data, err){
-						if(!err) {console.log('Created Projects Commits'); callback();} 
+						if(!err) {console.log('Created Projects Commits'); callback();}
 						else console.log(err);
 					});
 				},
 				function(callback){
 					numberCommitsForDay().then(function(data, err){
-						if(!err) console.log('Created Commits Number for Day'); 
+						if(!err) console.log('Created Commits Number for Day');
 						else console.log(err);
 					});
 				}
 			]);
 
-			
-		}		
+
+		}
 	}
 
 	return clazz;
 }
-
-
