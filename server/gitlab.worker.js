@@ -192,7 +192,7 @@ module.exports = function(gitlab){
 			function rankingByUser(user){
 				Commit.find({})
 					.populate('user')
-					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }, {authorEmail: new RegExp('^'+user.username+'$', "i")}])
+					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }, {authorEmail: new RegExp(user.username, "i")}])
 					.and({createdAt: {'$gt': gtDate}})
 					.count()
 					.exec(function(err, data){
