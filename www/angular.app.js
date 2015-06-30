@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('gitdash', ['ui.router'])
+		.module('gitdash', ['ngRoute', 'ui.router'])
 		.constant('API', {
 			PROJECT: '/api/projects',
 			USER: '/api/users',

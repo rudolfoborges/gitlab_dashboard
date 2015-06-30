@@ -7,6 +7,7 @@
     "normalize.css": "~3.0.3",
     "fontawesome": "~4.3.0",
     "animate.css": "~3.3.0",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "angular-route": "~1.4.1"
   }
 }

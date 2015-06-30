@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-	User = mongoose.model('User');
+		User = mongoose.model('User');
 
 exports.param = function(req, res, next, id) {
 	req.id = id;
@@ -16,7 +16,7 @@ exports.index = function(req, res){
 }
 
 exports.findOne = function(req, res){
-	User.findOne({_id: req.id}, function(err, data){
+	User.findById(req.id, function(err, data){
 		if(!err) res.status(200).json(data);
 		else res.stats(500).json({error: err});
 	});

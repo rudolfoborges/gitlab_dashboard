@@ -8,6 +8,9 @@ var express = require('express'),
 	var controller = require('./controllers/project.controller');
 	router.route('/projects').get(controller.index);
 	router.route('/projects/commits').get(controller.commits);
+	router.route('/projects/:id').get(controller.index);
+
+	//router.param('id', controller.param);
 })();
 
 
