@@ -1,0 +1,15 @@
+.wrapper-fullscreen {
+	padding: 40px 0px !important;
+}
+
+.navbar-brand {
+	text-align: center;
+}
+
+.top-navigation .navbar-brand {
+	padding: 5px 25px;
+}
+
+.navbar-brand small {
+	font-size: 9pt;
+}

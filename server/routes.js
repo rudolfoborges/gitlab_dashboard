@@ -15,6 +15,9 @@ var express = require('express'),
 (function(){
 	var controller = require('./controllers/user.controller');
 	router.route('/users').get(controller.index);
+	router.route('/users/:id').get(controller.findOne);
+
+	router.param('id', controller.param);
 })();
 
 

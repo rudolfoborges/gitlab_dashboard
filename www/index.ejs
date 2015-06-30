@@ -3,15 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Gitlab Dashboard</title>
+	<title>GitDash - Gitlab Metric Dashboad</title>
 
 	<link rel="stylesheet" href="lib/normalize.css/normalize.css">
 	<link rel="stylesheet" href="lib/animate.css/animate.min.css">
 	<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/main.css" rel="stylesheet">
-	
+  <link href="lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
 	<script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -24,10 +24,12 @@
     <script src="controllers/home.controller.js"></script>
     <script src="controllers/user.ranking.controller.js"></script>
     <script src="controllers/project.ranking.controller.js"></script>
+		<script src="controllers/project.profile.controller.js"></script>
+		<script src="controllers/user.profile.controller.js"></script>
     <!-- endbuild -->
 </head>
-<body ng-app="app">
-	
+<body ng-app="gitdash">
+
 	<body class="top-navigation pace-done fixed-nav">
         <div id="wrapper">
             <div id="page-wrapper" class="gray-bg">
@@ -37,7 +39,7 @@
                             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                                 <i class="fa fa-reorder"></i>
                             </button>
-                            <a href="/#!/" class="navbar-brand"><i class="fa fa-bar-chart"></i> Gitlab Metric Dashboard</a>
+                            <a href="/#!/dashboard/home" class="navbar-brand"><i class="fa fa-bar-chart"></i> GitDash <br> <small>Gitlab Metric Dashboard</small></a>
                         </div>
                         <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
@@ -83,14 +85,14 @@
                 </div>
             </div>
 
-        
-		
+
+
         <script src="lib/jquery/dist/jquery.min.js"></script>
     	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     	<script src="assets/js/metisMenu/jquery.metisMenu.js"></script>
     	<script src="assets/js/slimscroll/jquery.slimscroll.min.js"></script>
     	<script src="assets/js/inspinia.js"></script>
-    	
+
 
 
 </body>

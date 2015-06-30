@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('app')
+		.module('gitdash')
 		.controller('HomeController', ['$scope', '$http', 'API', HomeController]);
 
 	function HomeController($scope, $http, API){

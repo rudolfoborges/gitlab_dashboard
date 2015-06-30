@@ -18,11 +18,11 @@ module.exports = {
 
 		app.use(bodyParser.json());
 		app.use(bodyParser.urlencoded({ extended: false }));
-		app.set('views', path.join(__basedir, 'public'));
+		app.set('views', path.join(__basedir, 'www'));
 		app.set('view engine', 'ejs');
 		app.engine('html', require('ejs').renderFile);
 
-		app.use(express.static(path.join(__basedir, 'public')));
+		app.use(express.static(path.join(__basedir, 'www')));
 
 
 

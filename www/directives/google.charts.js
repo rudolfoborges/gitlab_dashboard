@@ -1,7 +1,7 @@
 (function(){
 
 	angular
-		.module('app')
+		.module('gitdash')
 		.directive('goChart', charBarDirective);
 
 	function charBarDirective(){
@@ -27,12 +27,12 @@
 					}
 				});
 
-  				
+
 			}
   		}
   	}
 
-	google.setOnLoadCallback(function() {  
+	google.setOnLoadCallback(function() {
 	    angular.bootstrap(document.body, ['app']);
 	});
 	google.load("visualization", "1.1", {packages:['bar', 'calendar']});

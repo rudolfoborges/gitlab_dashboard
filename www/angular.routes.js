@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('app')
+		.module('gitdash')
 		.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 
 			$stateProvider
@@ -18,7 +18,7 @@
 			      url: "/home",
 			      cache: true,
 			      views: {
-			        "contentView": { 
+			        "contentView": {
 			        	templateUrl: "templates/home.html",
 			        	controller: 'HomeController as ctrl'
 			        }
@@ -29,7 +29,7 @@
 			      url: "/ranking/users",
 			      cache: true,
 			      views: {
-			        "contentView": { 
+			        "contentView": {
 			        	templateUrl: "templates/user.ranking.html",
 			        	controller: 'UserRankingController as ctrl'
 			        }
@@ -40,31 +40,31 @@
 			      url: "/ranking/projects",
 			      cache: true,
 			      views: {
-			        "contentView": { 
+			        "contentView": {
 			        	templateUrl: "templates/project.ranking.html",
 			        	controller: 'ProjectRankingController as ctrl'
 			        }
 			      }
 			    })
 
-			    .state('dashboard.userView', {
-			      url: "/users/:id/view",
+			    .state('dashboard.userProfile', {
+			      url: "/users/:id/profile",
 			      cache: true,
 			      views: {
-			        "contentView": { 
-			        	templateUrl: "templates/project.ranking.html",
-			        	controller: 'ProjectRankingController as ctrl'
+			        "contentView": {
+			        	templateUrl: "templates/user.profile.html",
+			        	controller: 'UserProfileController as ctrl'
 			        }
 			      }
 			    })
 
-			    .state('dashboard.projectView', {
-			      url: "/projects/:id/view",
+			    .state('dashboard.projectProfile', {
+			      url: "/projects/:id/profile",
 			      cache: true,
 			      views: {
-			        "contentView": { 
+			        "contentView": {
 			        	templateUrl: "templates/project.ranking.html",
-			        	controller: 'ProjectRankingController as ctrl'
+			        	controller: 'ProjectProfileController as ctrl'
 			        }
 			      }
 			    });

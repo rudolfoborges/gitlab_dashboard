@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('app')
+		.module('gitdash')
 		.controller('DashboardController', ['$scope', '$http', 'API', DashboardController]);
 
 	function DashboardController($scope, $http, API){
