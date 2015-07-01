@@ -153,7 +153,7 @@ module.exports = function(gitlab){
 			function rankingByUser(user){
 				Commit.find({})
 					.populate('user')
-					.or([{ authorName: user.username }, { authorName: user.name }, {authorName: new RegExp(user.username, "i")}, { authorEmail: user.email }, {authorEmail: new RegExp(user.username, "i")}])
+					.or([{ authorName: user.username }, { authorName: user.name }, {authorName: new RegExp(user.username, 'i')}, { authorEmail: user.email }, {authorEmail: new RegExp(user.username, 'i')}])
 					.count()
 					.exec(function(err, data){
 						var ranking = new UserRanking();
@@ -176,7 +176,7 @@ module.exports = function(gitlab){
 		return new Promise(function(resolve, reject){
 			var gtDate = new Date();
 			var dayOfMonth = gtDate.getDate();
-			gtDate.setDate(gtDate.getDate() - dayOfMonth);
+			gtDate.setDate(gtDate.getDate() - (dayOfMonth - 1));
 
 			UserRankingMonthly.remove({}, function(err){
 				if(!err) getAllUsers();
@@ -218,7 +218,7 @@ module.exports = function(gitlab){
 		return new Promise(function(resolve, reject){
 			var gtDate = new Date();
 			var dayOfMonth = gtDate.getDate();
-			gtDate.setDate(gtDate.getDate() - dayOfMonth);
+			gtDate.setDate(gtDate.getDate() - (dayOfMonth - 1));
 
 			ProjectRankingMonthly.remove({}, function(err){
 				if(!err) getAllProjects();

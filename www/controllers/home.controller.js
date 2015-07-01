@@ -46,7 +46,6 @@
 			$http.get(API.COMMIT + '/numbers').then(function(res){
 				res.data.forEach(function(item){
 					var dateSplit = item.createdAt.substring(0,10).split('-');
-					console.log(dateSplit[0], parseInt(dateSplit[1]) + 1, dateSplit[2]);
 					commitsNumbers.push([new Date(dateSplit[0], parseInt(dateSplit[1]) - 1, dateSplit[2]), item.commits]);
 				});
 				ctrl.calendarChart = new Chart('Calendar');

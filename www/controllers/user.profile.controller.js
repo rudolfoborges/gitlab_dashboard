@@ -25,8 +25,7 @@
       $http.get(API.USER + '/' + $stateParams.id + '/commits/groupByDay').then(function(res){
         res.data.forEach(function(item){
 					var dateSplit = item.createdAt.split('-');
-					console.log(dateSplit[0], parseInt(dateSplit[1]) + 1, dateSplit[2]);
-					commitsNumbers.push([new Date(dateSplit[0], parseInt(dateSplit[1]) - 1, dateSplit[2]), item.commits]);
+					commitsNumbers.push([new Date(dateSplit[0], dateSplit[1], dateSplit[2]), item.commits]);
 				});
 				ctrl.calendarChart = new Chart('Calendar');
 				ctrl.calendarChart.setData(commitsNumbers);
