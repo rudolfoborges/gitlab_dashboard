@@ -13,3 +13,13 @@
 .navbar-brand small {
 	font-size: 9pt;
 }
+
+.block-center {
+	width: 100%;
+	text-align: center;
+}
+
+.image-user {
+	width: 50%;
+	margin: 0 auto;
+}

@@ -115,14 +115,16 @@ module.exports = function(gitlab){
 				commit.project = project;
 				commit.projectId = project.remoteId;
 
-				User.findOne({name: data.name}, function(err, user){
-					if(user) {
-						commit.user = user;
-						commit.userId = user.remoteId;
-					}
-					commit.save(function(err){
-						if(err) console.log(err);
-					});
+				User.findOne()
+						.or([{username: data.author_name }, {name: data.author_name }, {name: new RegExp(data.author_name, "i")} , { email: data.author_email }, {email: new RegExp(data.author_name, "i")}])
+						.exec(function(err, user){
+							if(user) {
+								commit.user = user;
+								commit.userId = user.remoteId;
+							}
+							commit.save(function(err){
+								if(err) console.log(err);
+							});
 				});
 			}
 
@@ -151,7 +153,7 @@ module.exports = function(gitlab){
 			function rankingByUser(user){
 				Commit.find({})
 					.populate('user')
-					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }, {authorEmail: new RegExp(user.username, "i")}])
+					.or([{ authorName: user.username }, { authorName: user.name }, {authorName: new RegExp(user.username, "i")}, { authorEmail: user.email }, {authorEmail: new RegExp(user.username, "i")}])
 					.count()
 					.exec(function(err, data){
 						var ranking = new UserRanking();
@@ -192,7 +194,7 @@ module.exports = function(gitlab){
 			function rankingByUser(user){
 				Commit.find({})
 					.populate('user')
-					.or([{ authorName: user.username }, { authorName: user.name }, { authorEmail: user.email }, {authorEmail: new RegExp(user.username, "i")}])
+					.or([{authorName: user.username }, {authorName: user.name }, {authorName: new RegExp(user.username, "i")}, {authorEmail: user.email }, {authorEmail: new RegExp(user.username, "i")}])
 					.and({createdAt: {'$gt': gtDate}})
 					.count()
 					.exec(function(err, data){

@@ -19,6 +19,8 @@ var express = require('express'),
 	var controller = require('./controllers/user.controller');
 	router.route('/users').get(controller.index);
 	router.route('/users/:id').get(controller.findOne);
+	router.route('/users/:id/commits').get(controller.findCommits);
+	router.route('/users/:id/commits/groupByDay').get(controller.findCommitsGroupByDay);
 
 	router.param('id', controller.param);
 })();

@@ -37,7 +37,7 @@ module.exports = {
 			res.render('index');
 		});
 
-		app.use('/api', require(__basedir + '/server/routes'));
+		app.use('/api/v1', require(__basedir + '/server/routes'));
 
 		var worker = new GitlabWorker(gitlab);
 		//worker.start();

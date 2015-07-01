@@ -2,12 +2,12 @@
 	'use strict';
 
 	angular
-		.module('gitdash', ['ngRoute', 'ui.router'])
+		.module('gitdash', ['ui.router'])
 		.constant('API', {
-			PROJECT: '/api/projects',
-			USER: '/api/users',
-			COMMIT: '/api/commits',
-			RANKING: '/api/ranking'
+			PROJECT: '/api/v1/projects',
+			USER: '/api/v1/users',
+			COMMIT: '/api/v1/commits',
+			RANKING: '/api/v1/ranking'
 		})
 		.config(['$locationProvider', '$httpProvider', '$provide',
 				function($locationProvider, $httpProvider, $provide){
