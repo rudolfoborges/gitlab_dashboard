@@ -5,7 +5,7 @@ module.exports = function(gitlab){
 	var async = require('async'),
 		Promise = require('promise'),
 		mongoose = require('mongoose'),
-		Hash = require('./common/hash'),
+		Hash = require('./../common/hash'),
 		User = mongoose.model('User'),
 		Project = mongoose.model('Project'),
 		Commit = mongoose.model('Commit'),
@@ -174,9 +174,8 @@ module.exports = function(gitlab){
 
 	function userRankingMonthly(){
 		return new Promise(function(resolve, reject){
-			var gtDate = new Date();
-			var dayOfMonth = gtDate.getDate();
-			gtDate.setDate(gtDate.getDate() - (dayOfMonth - 1));
+			var date = new Date();
+			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
 			UserRankingMonthly.remove({}, function(err){
 				if(!err) getAllUsers();
@@ -195,7 +194,7 @@ module.exports = function(gitlab){
 				Commit.find({})
 					.populate('user')
 					.or([{authorName: user.username }, {authorName: user.name }, {authorName: new RegExp(user.username, "i")}, {authorEmail: user.email }, {authorEmail: new RegExp(user.username, "i")}])
-					.and({createdAt: {'$gt': gtDate}})
+					.and({createdAt: {'$gt': firstDay}})
 					.count()
 					.exec(function(err, data){
 						var rankingMonthly = new UserRankingMonthly();
@@ -216,9 +215,8 @@ module.exports = function(gitlab){
 
 	function projectRankingMonthly(){
 		return new Promise(function(resolve, reject){
-			var gtDate = new Date();
-			var dayOfMonth = gtDate.getDate();
-			gtDate.setDate(gtDate.getDate() - (dayOfMonth - 1));
+			var date = new Date();
+			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
 			ProjectRankingMonthly.remove({}, function(err){
 				if(!err) getAllProjects();
@@ -234,7 +232,7 @@ module.exports = function(gitlab){
 			}
 
 			function rankingByProject(project){
-				Commit.find({projectId: project.remoteId, createdAt: {'$gt': gtDate}})
+				Commit.find({projectId: project.remoteId, createdAt: {'$gt': firstDay}})
 					.populate('project')
 					.count()
 					.exec(function(err, data){
@@ -359,7 +357,7 @@ module.exports = function(gitlab){
 	var clazz = {
 		start: function(){
 			async.waterfall([
-				function(callback){
+				/*function(callback){
 					users().then(function(data, err){
 						if(!err) {console.log('Import Users'); callback();}
 						else console.log(err);
@@ -382,7 +380,7 @@ module.exports = function(gitlab){
 						if(!err) {console.log('Created Ranking'); callback();}
 						else console.log(err);
 					});
-				},
+				},*/
 				function(callback){
 					userRankingMonthly().then(function(data, err){
 						if(!err) {console.log('Created Monthly Ranking'); callback();}
@@ -394,7 +392,7 @@ module.exports = function(gitlab){
 						if(!err) {console.log('Created Monthly Ranking'); callback();}
 						else console.log(err);
 					});
-				},
+				}/*,
 				function(callback){
 					commitsByProject().then(function(data, err){
 						if(!err) {console.log('Created Projects Commits'); callback();}
@@ -406,7 +404,7 @@ module.exports = function(gitlab){
 						if(!err) console.log('Created Commits Number for Day');
 						else console.log(err);
 					});
-				}
+				}*/
 			]);
 
 

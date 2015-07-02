@@ -40,26 +40,27 @@
 })();
 
 function Chart(chartType){
-	var data = [];
-	var options = {};
+	this._data = [];
+	this._options = {};
+	this._chartType = chartType;
 
-	var clazz = {
-		setData: function(_data){
-			data = _data;
-		},
-		setOptions: function(_options){
-			options = _options;
-		},
-		getData: function(){
-			return data;
-		},
-		getOptions: function(){
-			return options;
-		},
-		getChartType: function(){
-			return chartType;
-		}
-	};
+	this.setData = function(data){
+			this._data = data;
+	}
 
-	return clazz;
+	this.setOptions = function(options){
+			this.options = options;
+	}
+
+	this.getData = function(){
+			return this._data;
+	}
+
+	this.getOptions = function(){
+			return this._options;
+	}
+
+	this.getChartType = function(){
+			return this._chartType;
+	}
 }

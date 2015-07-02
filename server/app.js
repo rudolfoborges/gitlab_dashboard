@@ -7,7 +7,7 @@ module.exports = {
 			bodyParser = require('body-parser'),
 			mongoose = require('mongoose'),
 			fs = require('fs'),
-			GitlabWorker = require('./gitlab.worker'),
+			GitlabWorker = require('./jobs/gitlab.worker'),
 			CronJob = require('cron').CronJob,
 			app = express();
 
@@ -40,7 +40,7 @@ module.exports = {
 		app.use('/api/v1', require(__basedir + '/server/routes'));
 
 		var worker = new GitlabWorker(gitlab);
-		//worker.start();
+		worker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());
