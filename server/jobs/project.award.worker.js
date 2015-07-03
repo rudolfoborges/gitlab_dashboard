@@ -8,7 +8,7 @@ module.exports = function(){
 
   var date = new Date();
   var firstDayOfMonth = new Date(date.getFullYear(), date.getMonth() - 1, 1);
-  var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  var lastDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 0);
 
   var maxNumberOfCommits = 0;
   var projectRef;
