@@ -9,12 +9,14 @@
   function UserProfileController($scope, $http, $stateParams, API){
     var ctrl = this;
     ctrl.user = {};
+    ctrl.awards = [];
     ctrl.commits = [];
     ctrl.calendarChart;
 
     ctrl.init = function(){
       $http.get(API.USER + '/' + $stateParams.id).then(function(res){
-        ctrl.user = res.data;
+        ctrl.user = res.data.user;
+        ctrl.awards = res.data.awards;
       });
 
       $http.get(API.USER + '/' + $stateParams.id + '/commits').then(function(res){

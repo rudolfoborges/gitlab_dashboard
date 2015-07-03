@@ -46,7 +46,7 @@ module.exports = {
 		//userAwardWorker.start();
 
 		var projectAwardWorker = new ProjectAwardWorker();
-		projectAwardWorker.start();
+		//projectAwardWorker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());

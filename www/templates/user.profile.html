@@ -20,6 +20,15 @@
                         <br>
                         <h1><strong>{{ctrl.user.name}}</strong></h1>
                         <p><i class="fa fa-code-fork"></i> {{ctrl.commits.length}} commit(s)</p>
+                        <p><i class="fa fa-trophy"></i> {{ctrl.awards.length}} trophies</p>
+                        <div class="row" style="width: 60%; margin: 0 auto; text-align: center;">
+                          <div class="col-md-3" ng-repeat="award in ctrl.awards" style="margin: auto;">
+                            <img src="../assets/images/award.jpg" alt="Award" width="90" />
+                            <br>
+                            <strong>0{{award.month}}/{{award.year}}</strong>
+                            <p><small>Commits: {{award.numberOfCommits}}</small></p>
+                          </div>
+                        </div>
                     </div>
                </div>
              </div>

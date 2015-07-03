@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
 		User = mongoose.model('User'),
 		Commit = mongoose.model('Commit'),
+		UserAward = mongoose.model('UserAward'),
 		Hash = require('../common/hash');
 
 exports.param = function(req, res, next, id) {
@@ -19,7 +20,16 @@ exports.index = function(req, res){
 
 exports.findOne = function(req, res){
 	User.findById(req.id, function(err, data){
-		if(!err) res.status(200).json(data);
+		var user = data;
+		if(!err && user) {
+			var query = UserAward.find({user: user});
+			query.sort({createdAt: -1});
+			query.exec(function(err, data){
+				if(!err) {
+					res.status(200).json({user: user, awards: data});
+				}
+			});
+		}
 		else res.stats(500).json({error: err});
 	});
 }
