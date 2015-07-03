@@ -282,11 +282,11 @@ module.exports = function(gitlab){
 			function processCommit(commit){
 				var project = commit.project;
 				if(!hash.contains(project)){
-					hash.put(project, 0);
+					hash.push(project, 0);
 				}
 
 				var countCommits = hash.get(project) + 1;
-				hash.put(project, countCommits);
+				hash.push(project, countCommits);
 			}
 
 			function saveProjectCommits(project, commits){
@@ -335,11 +335,11 @@ module.exports = function(gitlab){
 			function processCommit(commit){
 				var createdAt = commit.createdAt.dateFormat();
 				if(!hash.contains(createdAt)){
-					hash.put(createdAt, 0);
+					hash.push(createdAt, 0);
 				}
 
 				var countCommits = hash.get(createdAt) + 1;
-				hash.put(createdAt, countCommits);
+				hash.push(createdAt, countCommits);
 			}
 
 			function saveProjectCommits(createdAt, commits){

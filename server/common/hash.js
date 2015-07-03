@@ -8,7 +8,7 @@ module.exports = function(){
 		return keys.indexOf(key);
 	}
 
-	this.put = function(key, value){
+	this.push = function(key, value){
 		var index = indexOf(key);
 		if(index >= 0){
 			values[index] = value;

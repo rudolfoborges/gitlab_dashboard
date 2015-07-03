@@ -72,11 +72,11 @@ exports.findCommitsGroupByDay = function(req, res){
 	function processCommit(commit){
 		var createdAt = commit.createdAt.dateFormat();
 		if(!hash.contains(createdAt)){
-			hash.put(createdAt, 0);
+			hash.push(createdAt, 0);
 		}
 
 		var countCommits = hash.get(createdAt) + 1;
-		hash.put(createdAt, countCommits);
+		hash.push(createdAt, countCommits);
 	}
 }
 
