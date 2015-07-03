@@ -8,7 +8,7 @@ module.exports = {
 			mongoose = require('mongoose'),
 			fs = require('fs'),
 			GitlabWorker = require('./jobs/gitlab.worker'),
-			AwardWorker = require('./jobs/award.worker'),
+			AwardWorker = require('./jobs/user.award.worker'),
 			CronJob = require('cron').CronJob,
 			app = express();
 
