@@ -23,4 +23,4 @@ var schema = new Schema({
   }
 });
 
-mongoose.model('Award', schema);
+mongoose.model('UserAward', schema);

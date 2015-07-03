@@ -42,7 +42,7 @@ module.exports = {
 		//worker.start();
 
 		var awardWorker = new AwardWorker();
-		//awardWorker.start();
+		awardWorker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());

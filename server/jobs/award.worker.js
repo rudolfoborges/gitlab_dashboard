@@ -3,7 +3,7 @@
 
 module.exports = function(){
   var mongoose = require('mongoose'),
-      Award = mongoose.model('Award'),
+      UserAward = mongoose.model('UserAward'),
       Commit = mongoose.model('Commit'),
       User = mongoose.model('User');
 
@@ -41,7 +41,7 @@ module.exports = function(){
         });
         setTimeout(function () {
           if(userRef){
-            var award = new Award();
+            var award = new UserAward();
             award.month = firstDayOfMonth.getMonth();
             award.year = firstDayOfMonth.getFullYear();
             award.user = userRef;
@@ -49,7 +49,7 @@ module.exports = function(){
             award.save(function(err){
               if(err) console.log(err);
             });
-            console.log('Award process completed. Award user is: ', userRef.name);
+            console.log('Process completed. User award is: ', userRef.name);
           }
         }, 5000);
 
