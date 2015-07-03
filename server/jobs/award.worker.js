@@ -40,17 +40,16 @@ module.exports = function(){
           processUser(user);
         });
         setTimeout(function () {
-          console.log('O usuário foi: ', userRef);
           if(userRef){
             var award = new Award();
             award.month = firstDayOfMonth.getMonth();
             award.year = firstDayOfMonth.getFullYear();
             award.user = userRef;
             award.numberOfCommits = maxNumberOfCommits;
-            console.log('User awarded: ', userRef.name);
             award.save(function(err){
               if(err) console.log(err);
-            })
+            });
+            console.log('Award process completed. Award user is: ', userRef.name);
           }
         }, 5000);
 
