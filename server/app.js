@@ -8,6 +8,7 @@ module.exports = {
 			mongoose = require('mongoose'),
 			fs = require('fs'),
 			GitlabWorker = require('./jobs/gitlab.worker'),
+			AwardWorker = require('./jobs/award.worker'),
 			CronJob = require('cron').CronJob,
 			app = express();
 
@@ -24,8 +25,6 @@ module.exports = {
 
 		app.use(express.static(path.join(__basedir, 'www')));
 
-
-
 		mongoose.connect(env.mongo.url);
 
 		// Bootstrap models
@@ -40,7 +39,10 @@ module.exports = {
 		app.use('/api/v1', require(__basedir + '/server/routes'));
 
 		var worker = new GitlabWorker(gitlab);
-		worker.start();
+		//worker.start();
+
+		var awardWorker = new AwardWorker();
+		//awardWorker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());

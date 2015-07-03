@@ -357,7 +357,7 @@ module.exports = function(gitlab){
 	var clazz = {
 		start: function(){
 			async.waterfall([
-				/*function(callback){
+				function(callback){
 					users().then(function(data, err){
 						if(!err) {console.log('Import Users'); callback();}
 						else console.log(err);
@@ -380,7 +380,7 @@ module.exports = function(gitlab){
 						if(!err) {console.log('Created Ranking'); callback();}
 						else console.log(err);
 					});
-				},*/
+				},
 				function(callback){
 					userRankingMonthly().then(function(data, err){
 						if(!err) {console.log('Created Monthly Ranking'); callback();}
@@ -392,7 +392,7 @@ module.exports = function(gitlab){
 						if(!err) {console.log('Created Monthly Ranking'); callback();}
 						else console.log(err);
 					});
-				}/*,
+				},
 				function(callback){
 					commitsByProject().then(function(data, err){
 						if(!err) {console.log('Created Projects Commits'); callback();}
@@ -404,7 +404,7 @@ module.exports = function(gitlab){
 						if(!err) console.log('Created Commits Number for Day');
 						else console.log(err);
 					});
-				}*/
+				}
 			]);
 
 
