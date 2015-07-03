@@ -8,7 +8,8 @@ module.exports = {
 			mongoose = require('mongoose'),
 			fs = require('fs'),
 			GitlabWorker = require('./jobs/gitlab.worker'),
-			AwardWorker = require('./jobs/user.award.worker'),
+			UserAwardWorker = require('./jobs/user.award.worker'),
+			ProjectAwardWorker = require('./jobs/project.award.worker'),
 			CronJob = require('cron').CronJob,
 			app = express();
 
@@ -41,8 +42,11 @@ module.exports = {
 		var worker = new GitlabWorker(gitlab);
 		//worker.start();
 
-		var awardWorker = new AwardWorker();
-		awardWorker.start();
+		var userAwardWorker = new UserAwardWorker();
+		//userAwardWorker.start();
+
+		var projectAwardWorker = new ProjectAwardWorker();
+		projectAwardWorker.start();
 
 		var job = new CronJob(env.cron.time, function(){
 			//console.log('Start all Jbos' + new Date());
