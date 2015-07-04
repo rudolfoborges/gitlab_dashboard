@@ -40,7 +40,7 @@ module.exports = function(){
         setTimeout(function () {
           if(projectRef){
             var award = new ProjectAward();
-            award.month = firstDayOfMonth.getMonth();
+            award.month = firstDayOfMonth.getMonth() + 1;
             award.year = firstDayOfMonth.getFullYear();
             award.project = projectRef;
             award.numberOfCommits = maxNumberOfCommits;

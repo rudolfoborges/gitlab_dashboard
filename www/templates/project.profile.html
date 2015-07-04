@@ -1,0 +1,75 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+      <h2>Project Profile</h2>
+      <ol class="breadcrumb">
+          <li>
+              <a href="/#!/dashboard/home">Home</a>
+          </li>
+          <li class="active">
+              <strong>Project Profile</strong>
+          </li>
+      </ol>
+  </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeIn">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="block-center">
+                    <div class="ibox-content profile-content">
+                        <br>
+                        <h1><strong>{{ctrl.project.name}}</strong></h1>
+                        <p><i class="fa fa-code-fork"></i> {{ctrl.commits.length}} commit(s)</p>
+                        <p><i class="fa fa-trophy"></i> {{ctrl.awards.length}} trophies</p>
+                        <div class="row" style="width: 60%; margin: 0 auto; text-align: center;">
+                          <div class="col-md-3" ng-repeat="award in ctrl.awards" style="margin: auto;">
+                            <img src="../assets/images/award.jpg" alt="Award" width="90" />
+                            <br>
+                            <strong>0{{award.month}}/{{award.year}}</strong>
+                            <p><small>Commits: {{award.numberOfCommits}}</small></p>
+                          </div>
+                        </div>
+                    </div>
+               </div>
+             </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Commit(s)</h5>
+              </div>
+              <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div go-chart go-chart-model="ctrl.calendarChart" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+          <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Commit(s)</h5>
+                </div>
+                <div class="ibox-content">
+                    <div>
+                        <div class="feed-activity-list">
+
+                            <div class="feed-element" ng-repeat="commit in ctrl.commits">
+                                <div class="media-body ">
+                                    <small class="pull-right text-navy">1m ago</small>
+                                    Commit <strong>{{commit.shortHash}}</strong> of <strong>{{commit.user.name}}</strong>. <br>
+                                    <h5>Long hash: {{commit.hash}}</h5>
+                                    <small class="text-muted">{{commit.createdAt | date:"yyyy-MM-dd 'at' h:mma"}}</small>
+                                </div>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

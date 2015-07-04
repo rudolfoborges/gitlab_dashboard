@@ -63,7 +63,7 @@
 			      cache: true,
 			      views: {
 			        "contentView": {
-			        	templateUrl: "templates/project.ranking.html",
+			        	templateUrl: "templates/project.profile.html",
 			        	controller: 'ProjectProfileController as ctrl'
 			        }
 			      }

@@ -3,7 +3,9 @@
 var mongoose = require('mongoose'),
 	Project = mongoose.model('Project'),
 	ProjectCommit = mongoose.model('ProjectCommit'),
-	Commit = mongoose.model('Commit');
+	Commit = mongoose.model('Commit'),
+	ProjectAward = mongoose.model('ProjectAward'),
+	Hash = require('../common/hash');
 
 exports.param = function(req, res, next, id) {
 	req.id = id;
@@ -26,8 +28,17 @@ exports.commits = function(req, res){
 
 exports.findOne = function(req, res){
 	Project.findById(req.id, function(err, data){
-		if(!err) res.status(200).json(data);
-		else res.status(500).json({error: err});
+		var project = data;
+		if(!err && project) {
+			var query = ProjectAward.find({project: project});
+			query.sort({createdAt: -1});
+			query.exec(function(err, data){
+				if(!err) {
+					res.status(200).json({project: project, awards: data});
+				}
+			});
+		}
+		else res.stats(500).json({error: err});
 	})
 }
 
@@ -80,6 +91,7 @@ exports.findCommitsGroupByDay = function(req, res){
 function findAllCommitsByRemoteId(remoteId, limitDate, res, fn){
 		var query = Commit.find({projectId: remoteId});
 		if(limitDate) query.where('createdAt').gt(limitDate);
+		query.populate('user');
 		query.sort({createdAt: -1});
 		query.exec(function(err, data){
 			if(!err && !fn) res.status(200).json(data);
