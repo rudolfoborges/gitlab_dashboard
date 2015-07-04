@@ -8,9 +8,11 @@ var express = require('express'),
 	var controller = require('./controllers/project.controller');
 	router.route('/projects').get(controller.index);
 	router.route('/projects/commits').get(controller.commits);
-	router.route('/projects/:id').get(controller.index);
+	router.route('/projects/:id').get(controller.findOne);
+	router.route('/projects/:id/commits').get(controller.fndAllCommitsByProject);
+	router.route('/projects/:id/commits/groupByDay').get(controller.findCommitsGroupByDay);
 
-	//router.param('id', controller.param);
+	router.param('id', controller.param);
 })();
 
 

@@ -84,11 +84,11 @@ exports.findCommitsGroupByDay = function(req, res){
 function findAllCommitsByRemoteId(remoteId, limitDate, res, fn){
 		var query = Commit.find({userId: remoteId});
 		if(limitDate) query.where('createdAt').gt(limitDate);
-		query.populate('project')
-		query.sort({createdAt: -1})
+		query.populate('project');
+		query.sort({createdAt: -1});
 		query.exec(function(err, data){
-		if(!err && !fn) res.status(200).json(data);
-		else if (!err && fn) fn(res, data);
-		else res.status(500).json({error: err});
-	});
+			if(!err && !fn) res.status(200).json(data);
+			else if (!err && fn) fn(res, data);
+			else res.status(500).json({error: err});
+		});
 }
