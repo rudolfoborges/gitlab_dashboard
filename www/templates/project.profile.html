@@ -49,6 +49,28 @@
                 </div>
               </div>
           </div>
+
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Contributors</h5>
+              </div>
+              <div class="ibox-content">
+                <div class="row">
+                  <div class="col-lg-4" ng-repeat="item in ctrl.contributors">
+                      <div class="contact-box">
+                          <a href="/#!/dashboard/users/{{item.user._id}}/profile">
+                          <div class="col-sm-12" style="text-align: center;">
+                              <h3><strong>{{item.user.name.substring(0, 15)}}...</strong></h3>
+                              <p><i class="fa fa-code-fork"></i> {{item.numberOfCommits}} commit(s)</p>
+                          </div>
+                          <div class="clearfix"></div>
+                              </a>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
           <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Commit(s)</h5>

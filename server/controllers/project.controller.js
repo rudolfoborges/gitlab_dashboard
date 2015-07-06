@@ -32,10 +32,15 @@ exports.findOne = function(req, res){
 		if(!err && project) {
 			var query = ProjectAward.find({project: project});
 			query.sort({createdAt: -1});
-			query.exec(function(err, data){
-				if(!err) {
-					res.status(200).json({project: project, awards: data});
+			query.exec(function(err, awards){
+				if(!err){
+					findAllCommitsByRemoteId(project.remoteId, null, res, function(res, commits){
+						findAllContributors(res, commits, function(contributors){
+								res.status(200).json({project: project, awards: awards, contributors: contributors});
+						})
+					});
 				}
+
 			});
 		}
 		else res.stats(500).json({error: err});
@@ -88,8 +93,8 @@ exports.findCommitsGroupByDay = function(req, res){
 	}
 }
 
-function findAllCommitsByRemoteId(remoteId, limitDate, res, fn){
-		var query = Commit.find({projectId: remoteId});
+function findAllCommitsByRemoteId(projectId, limitDate, res, fn){
+		var query = Commit.find({projectId: projectId});
 		if(limitDate) query.where('createdAt').gt(limitDate);
 		query.populate('user');
 		query.sort({createdAt: -1});
@@ -98,4 +103,25 @@ function findAllCommitsByRemoteId(remoteId, limitDate, res, fn){
 			else if (!err && fn) fn(res, data);
 			else res.status(500).json({error: err});
 		});
+}
+
+function findAllContributors(res, commits, callback){
+		var hash = new Hash();
+		commits.forEach(function(commit){
+			if(commit.user && !hash.contains(commit.user)){
+				hash.push(commit.user, 0);
+			}
+
+			if(commit.user){
+				var key = commit.user;
+				var countCommits = hash.get(key) + 1;
+				hash.push(key, countCommits);
+			}
+		});
+		var contributors = [];
+		hash.getKeys().forEach(function(key){
+			contributors.push({user: key, numberOfCommits: hash.get(key)});
+		});
+		
+		callback(contributors);
 }

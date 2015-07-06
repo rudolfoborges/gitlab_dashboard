@@ -12,11 +12,13 @@
     ctrl.awards = [];
     ctrl.commits = [];
     ctrl.calendarChart;
+    ctrl.contributors = [];
 
     ctrl.init = function(){
       $http.get(API.PROJECT + '/' + $stateParams.id).then(function(res){
         ctrl.project = res.data.project;
         ctrl.awards = res.data.awards;
+        ctrl.contributors = res.data.contributors;
       });
 
       $http.get(API.PROJECT + '/' + $stateParams.id + '/commits').then(function(res){
