@@ -45,4 +45,10 @@ var express = require('express'),
 	router.route('/ranking/projects/monthly').get(controller.projectMonthly);
 })();
 
+(function(){
+	var controller = require('./controllers/award.controller');
+	router.route('/awards/user').get(controller.users);
+	router.route('/awards/project').get(controller.users);
+})();
+
 module.exports = router;
