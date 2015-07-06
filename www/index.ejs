@@ -26,6 +26,8 @@
     <script src="controllers/project.ranking.controller.js"></script>
 		<script src="controllers/project.profile.controller.js"></script>
 		<script src="controllers/user.profile.controller.js"></script>
+		<script src="controllers/user.award.controller.js"></script>
+		<script src="controllers/project.award.controller.js"></script>
     <!-- endbuild -->
 </head>
 <body ng-app="gitdash">
@@ -49,17 +51,25 @@
                         <li class="dropdown">
                             <a aria-expanded="false" role="button" class="dropdown-toggle" data-toggle="dropdown">Ranking <span class="caret"></span>
                                 <ul role="menu" class="dropdown-menu">
-                                    <li><a href="/#!/dashboard/ranking/users">Users Ranking</a></li>
-                                    <li><a href="/#!/dashboard/ranking/projects">Projects Ranking</a></li>
+                                    <li><a href="/#!/dashboard/ranking/users">User</a></li>
+                                    <li><a href="/#!/dashboard/ranking/projects">Project</a></li>
                                 </ul>
                             </a>
                         </li>
-                        <li>
+												<li class="dropdown">
+                            <a aria-expanded="false" role="button" class="dropdown-toggle" data-toggle="dropdown">Trophies <span class="caret"></span>
+                                <ul role="menu" class="dropdown-menu">
+                                    <li><a href="/#!/dashboard/awards/user">User</a></li>
+                                    <li><a href="/#!/dashboard/awards/project">Project</a></li>
+                                </ul>
+                            </a>
+                        </li>
+                        <!--<li>
                             <a aria-expanded="false" role="button">Users</a>
                         </li>
                         <li>
                             <a aria-expanded="false" role="button" >Projects</a>
-                        </li>
+                        </li>-->
                     </ul>
                     <!--<ul class="nav navbar-top-links navbar-right">
                         <li>

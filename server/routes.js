@@ -48,7 +48,7 @@ var express = require('express'),
 (function(){
 	var controller = require('./controllers/award.controller');
 	router.route('/awards/user').get(controller.users);
-	router.route('/awards/project').get(controller.users);
+	router.route('/awards/project').get(controller.projects);
 })();
 
 module.exports = router;

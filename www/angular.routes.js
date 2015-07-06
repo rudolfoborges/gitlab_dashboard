@@ -67,6 +67,28 @@
 			        	controller: 'ProjectProfileController as ctrl'
 			        }
 			      }
+			    })
+
+					.state('dashboard.userAward', {
+			      url: "/awards/user",
+			      cache: true,
+			      views: {
+			        "contentView": {
+			        	templateUrl: "templates/user.award.html",
+			        	controller: 'UserAwardController as ctrl'
+			        }
+			      }
+			    })
+
+					.state('dashboard.projectAward', {
+			      url: "/awards/project",
+			      cache: true,
+			      views: {
+			        "contentView": {
+			        	templateUrl: "templates/project.award.html",
+			        	controller: 'ProjectAwardController as ctrl'
+			        }
+			      }
 			    });
 
 			$urlRouterProvider.otherwise("/dashboard/home");

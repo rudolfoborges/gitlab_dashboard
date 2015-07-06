@@ -1,0 +1,37 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+      <h2>Users Trophies</h2>
+      <ol class="breadcrumb">
+          <li>
+              <a href="/#!/dashboard/home">Home</a>
+          </li>
+          <li class="active">
+              <strong>Users Trophies</strong>
+          </li>
+      </ol>
+  </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeIn">
+        <div class="col-md-12">
+
+          <div class="row">
+            <div class="col-lg-4" ng-repeat="item in ctrl.awards">
+                <div class="contact-box">
+                    <a href="/#!/dashboard/users/{{item.user._id}}/profile">
+                    <div class="col-sm-12" style="text-align: center;">
+                      <img src="../assets/images/award.jpg" alt="Award" width="90" />
+                      <br>
+                        <h3><strong>{{item.user.name.substring(0, 15)}}...</strong></h3>
+                        <strong>0{{item.month}}/{{item.year}}</strong>
+                        <p><small>Commits: {{item.numberOfCommits}}</small></p>
+                    </div>
+                    <div class="clearfix"></div>
+                        </a>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+</div>

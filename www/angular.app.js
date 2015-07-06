@@ -7,7 +7,8 @@
 			PROJECT: '/api/v1/projects',
 			USER: '/api/v1/users',
 			COMMIT: '/api/v1/commits',
-			RANKING: '/api/v1/ranking'
+			RANKING: '/api/v1/ranking',
+			AWARD: '/api/v1/awards'
 		})
 		.config(['$locationProvider', '$httpProvider', '$provide',
 				function($locationProvider, $httpProvider, $provide){

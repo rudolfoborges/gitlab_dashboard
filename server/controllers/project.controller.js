@@ -122,6 +122,6 @@ function findAllContributors(res, commits, callback){
 		hash.getKeys().forEach(function(key){
 			contributors.push({user: key, numberOfCommits: hash.get(key)});
 		});
-		
+
 		callback(contributors);
 }
