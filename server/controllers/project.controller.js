@@ -123,5 +123,9 @@ function findAllContributors(res, commits, callback){
 			contributors.push({user: key, numberOfCommits: hash.get(key)});
 		});
 
+		contributors.sort(function(a, b){
+			return b.numberOfCommits - a.numberOfCommits;
+		});
+
 		callback(contributors);
 }
