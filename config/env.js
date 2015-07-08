@@ -6,4 +6,4 @@ function Environment(){
 	}
 }
 
-module.exports = new Environment();
+exports.Environment = new Environment();
