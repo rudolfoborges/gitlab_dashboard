@@ -1,35 +1,33 @@
 'use strict';
 
-module.exports = function(){
-	var keys = [],
-			values = [];
+function Hash(){
+	this.keys = [];
+	this.values = [];
+}
 
-	function indexOf(key){
-		return keys.indexOf(key);
-	}
+Hash.prototype.indexOf = function(key){
+	return this.keys.indexOf(key);
+}
 
-	this.push = function(key, value){
-		var index = indexOf(key);
-		if(index >= 0){
-			values[index] = value;
-		} else{
-			keys.push(key);
-			values.push(value);
-		}
-	}
-
-	this.get = function(key){
-		var index = indexOf(key);
-		if(index >= 0){
-			return values[index];
-		}
-	}
-
-	this.contains = function(key){
-		return indexOf(key) >= 0;
-	}
-
-	this.getKeys = function(){
-		return keys;
+Hash.prototype.push = function(key, value){
+	var index = this.indexOf(key);
+	if(index >= 0){
+		this.values[index] = value;
+	} else{
+		this.keys.push(key);
+		this.values.push(value);
 	}
 }
+
+Hash.prototype.get = function(key){
+	var index = this.indexOf(key);
+	if(index >= 0){
+		return this.values[index];
+	}
+}
+
+Hash.prototype.contains = function(key){
+	return this.indexOf(key) >= 0;
+}
+
+module.exports = Hash;

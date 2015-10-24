@@ -268,7 +268,7 @@ module.exports = function(gitlab){
 					});
 
 					setTimeout(function(){
-						var keys = hash.getKeys();
+						var keys = hash.keys;
 						keys.forEach(function(project){
 							var commits = hash.get(project);
 							saveProjectCommits(project, commits);
@@ -321,7 +321,7 @@ module.exports = function(gitlab){
 					});
 
 					setTimeout(function(){
-						var keys = hash.getKeys();
+						var keys = hash.keys;
 						keys.forEach(function(createdAt){
 							var commits = hash.get(createdAt);
 							saveProjectCommits(createdAt, commits);

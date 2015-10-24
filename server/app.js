@@ -1,62 +1,66 @@
 'use strict';
 
-module.exports = {
-	bootstrap: function(env, __basedir, callback){
-		var express = require('express'),
-			path = require('path'),
-			bodyParser = require('body-parser'),
-			mongoose = require('mongoose'),
-			fs = require('fs'),
-			GitlabWorker = require('./jobs/gitlab.worker'),
-			UserAwardWorker = require('./jobs/user.award.worker'),
-			ProjectAwardWorker = require('./jobs/project.award.worker'),
-			CronJob = require('cron').CronJob,
-			app = express();
+function App(name){
+	this.name = name;
+}
 
-		var gitlab = require('gitlab')({
-  			url: env.gitlab.host,
-  			token: env.gitlab.token
-		});
+App.prototype.bootstrap = function(env, __basedir, callback){
+	var express = require('express'),
+		path = require('path'),
+		bodyParser = require('body-parser'),
+		mongoose = require('mongoose'),
+		fs = require('fs'),
+		GitlabWorker = require('./jobs/gitlab.worker'),
+		UserAwardWorker = require('./jobs/user.award.worker'),
+		ProjectAwardWorker = require('./jobs/project.award.worker'),
+		CronJob = require('cron').CronJob,
+		context = express();
 
-		app.use(bodyParser.json());
-		app.use(bodyParser.urlencoded({ extended: false }));
-		app.set('views', path.join(__basedir, 'www'));
-		app.set('view engine', 'ejs');
-		app.engine('html', require('ejs').renderFile);
+	var gitlab = require('gitlab')({
+			url: env.gitlab.host,
+			token: env.gitlab.token
+	});
 
-		app.use(express.static(path.join(__basedir, 'www')));
+	context.use(bodyParser.json());
+	context.use(bodyParser.urlencoded({ extended: false }));
+	context.set('views', path.join(__basedir, 'www'));
+	context.set('view engine', 'ejs');
+	context.engine('html', require('ejs').renderFile);
 
-		mongoose.connect(env.mongo.url);
+	context.use(express.static(path.join(__basedir, 'www')));
 
-		// Bootstrap models
-		fs.readdirSync(path.join(__basedir, '/server/models')).forEach(function (file) {
-		  if (~file.indexOf('.js')) require(__basedir + '/server/models/' + file);
-		});
+	mongoose.connect(env.mongo.url);
 
-		app.get('/', function(req, res) {
-			res.render('index');
-		});
+	// Bootstrap models
+	fs.readdirSync(path.join(__basedir, '/server/models')).forEach(function (file) {
+	  if (~file.indexOf('.js')) require(__basedir + '/server/models/' + file);
+	});
 
-		app.use('/api/v1', require(__basedir + '/server/routes'));
+	context.get('/', function(req, res) {
+		res.render('index');
+	});
 
-		var worker = new GitlabWorker(gitlab);
+	context.use('/api/v1', require(__basedir + '/server/routes'));
+
+	var worker = new GitlabWorker(gitlab);
+	worker.start();
+
+	var userAwardWorker = new UserAwardWorker();
+	userAwardWorker.start();
+
+	var projectAwardWorker = new ProjectAwardWorker();
+	projectAwardWorker.start();
+
+	var job = new CronJob(env.cron.time, function(){
+		//console.log('Start all Jbos' + new Date());
 		//worker.start();
+	}, function(){
 
-		var userAwardWorker = new UserAwardWorker();
-		//userAwardWorker.start();
+	}, true, env.cron.timezone);
 
-		var projectAwardWorker = new ProjectAwardWorker();
-		//projectAwardWorker.start();
+	module.exports = context;
 
-		var job = new CronJob(env.cron.time, function(){
-			//console.log('Start all Jbos' + new Date());
-			//worker.start();
-		}, function(){
+	callback(context);
+}
 
-		}, true, env.cron.timezone);
-
-		module.exports = app;
-
-		callback(app);
-	}
-};
+exports.App = App;

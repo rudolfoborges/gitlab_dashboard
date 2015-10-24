@@ -1,3 +1,4 @@
+
 'use strict';
 
 var mongoose = require('mongoose'),
@@ -60,7 +61,7 @@ exports.findCommitsGroupByDay = function(req, res){
 		});
 
 		var data = [];
-		var keys = hash.getKeys();
+		var keys = hash.keys;
 		keys.forEach(function(createdAt){
 			var commits = hash.get(createdAt);
 			data.push({createdAt: createdAt, commits: commits});
